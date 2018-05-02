@@ -1,0 +1,18 @@
+<form >
+  <h1 mat-dialog-title>Sign in</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Login" name="Login" [(ngModel)]="data.user.Login" [formControl]="loginFormControl" [errorStateMatcher]="matcher">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" type="Password" name="Password" [(ngModel)]="data.user.Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="!passwordFormControl.hasError('required')">
+        Type at least 4 characters
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cansel</button>
+    <button mat-button (click)="onSubmit()">Submit</button>
+  </div>
+</form>
