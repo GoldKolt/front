@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {User} from '../model/user';
-import {AuthService} from '../auth.service';
+import {AuthService} from '../auth/auth.service';
 import {FormControl, Validators} from '@angular/forms';
 import {SignErrorStateMatcher} from '../ErrorStateMatchers/sign-error-state-matcher';
 
@@ -35,16 +35,16 @@ export class SignInDialogComponent {
   }
 
   onSubmit(): void {
-    if (this.data.user && this.data.user.Login && this.data.user.Password) {
+    if (this.data.user && this.data.user.email && this.data.user.password) {
 
       const returnedUser = this.authService.getUser(this.data.user);
       if (returnedUser) {
         this.dialogRef.close(returnedUser);
       } else {
-        this.data.user.Password = '';
+        this.data.user.password = '';
       }
     } else {
-      this.data.user.Password = '';
+      this.data.user.password = '';
     }
   }
 }

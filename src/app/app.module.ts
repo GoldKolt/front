@@ -13,6 +13,8 @@ import { MastersListComponent } from './masters-list/masters-list.component';
 import { SignInDialogComponent } from './signin-dialog/signin-dialog.component';
 import { MaterialAngularModule } from './material-angular/material-angular.module';
 import { CookieModule } from 'ngx-cookie';
+import { UsersListComponent } from './users-list/users-list.component';
+import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 
 
 const routes: Routes = [
@@ -32,7 +34,9 @@ const routes: Routes = [
     HomeComponent,
     ServicesListComponent,
     MastersListComponent,
-    SignInDialogComponent
+    SignInDialogComponent,
+    UsersListComponent,
+    SignupDialogComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
