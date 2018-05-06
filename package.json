@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "ssl": "ng serve --ssl 1 --ssl-key \"~/Angular/CarsRepair/ssl/localhost4200.key\" --ssl-cert \"~/Angular/CarsRepair/ssl/localhost4200.crt\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

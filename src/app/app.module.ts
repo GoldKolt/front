@@ -10,17 +10,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ServicesListComponent } from './services-list/services-list.component';
 import { MastersListComponent } from './masters-list/masters-list.component';
-import { SignInDialogComponent } from './signin-dialog/signin-dialog.component';
+import { SignInComponent } from './signin/signin.component';
 import { MaterialAngularModule } from './material-angular/material-angular.module';
 import { CookieModule } from 'ngx-cookie';
 import { UsersListComponent } from './users-list/users-list.component';
-import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Services', component: ServicesListComponent },
-  { path: 'Masters', component: MastersListComponent }
+  { path: 'Masters', component: MastersListComponent },
+  { path: 'SignIn', component: SignInComponent }
   // { path: 'admin', component: AdminComponent,
   //   children: [
   //     // { path: 'index' component:  }
@@ -34,9 +34,8 @@ const routes: Routes = [
     HomeComponent,
     ServicesListComponent,
     MastersListComponent,
-    SignInDialogComponent,
-    UsersListComponent,
-    SignupDialogComponent,
+    SignInComponent,
+    UsersListComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -48,7 +47,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MaterialAngularModule
   ],
-  entryComponents: [SignInDialogComponent],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })

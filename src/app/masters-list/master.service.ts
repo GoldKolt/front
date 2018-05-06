@@ -22,4 +22,8 @@ export class MasterService {
   post() {
 
   }
+
+  get(id: string) {
+    return this.http.get(url + id);
+  }
 }

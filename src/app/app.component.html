@@ -22,16 +22,16 @@
 
     <div *ngIf="!currentUser; else loggedIn">
       <div>
-        <button class="nav-button" mat-button (click)="sidenav.toggle(); SignIn()">Sign in</button>
+        <button class="nav-button" mat-button routerLink="SignIn">Sign in</button>
       </div>
       <div>
-        <button class="nav-button" mat-button (click)="sidenav.toggle(); SignUp()">Sign up</button>
+        <button class="nav-button" mat-button routerLink="SignUp">Sign up</button>
       </div>
     </div>
 
     <ng-template #loggedIn>
       <div>
-        <button class="nav-button" mat-button (click)="sidenav.toggle();">{{currentUser.Login}}</button>
+        <button class="nav-button" mat-button (click)="sidenav.toggle();">{{currentUser.email}}</button>
       </div>
       <div>
         <button class="nav-button" mat-button (click)="sidenav.toggle(); LogOut()" routerLink="/">LogOut</button>

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../model/user';
 
 @Injectable()
 export class UserService {
   url = 'https://spp-bsuir.herokuapp.com/user/';
+  user: User;
 
   constructor( private http: HttpClient ) { }
 
@@ -14,27 +14,41 @@ export class UserService {
     return this.http.get<User[]>(this.url);
   }
 
-  searchUsers(term: string): Observable<User[]> {
-    term = term.trim();
-
-    // Add safe, URL encoded search parameter if there is a search term
-    const options = term ?
-      { params: new HttpParams().set('name', term) } : {};
-
-    return this.http.get<User[]>(this.url, options);
+  getUser(id: string, token: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': token
+      })
+    };
+    return this.http.get<User>(this.url + id, options);
   }
 
-  postUser(user: User): Observable<User> {
+  postUser(user: User) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
     return this.http.post<User>(this.url, user, httpOptions);
   }
 
-  loginUser(value: string) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': value
-      })
-    };
-    return this.http.head(this.url, httpOptions);
+  findUser( users: User[], email: string ): User {
+    return users.find(value => value.email === email );
   }
+
+  // loginUser(user: User) {
+  //
+  //   const options = {
+  //     headers: new HttpHeaders({
+  //       'Authorization': token
+  //     })
+  //   };
+  //   return this.http.get<User[]>( this.url, options ).subscribe(resp => {
+  //     const foundUser = this.findUser(resp, user.email);
+  //     if (foundUser) {
+  //       const s = this.getUser(foundUser.id, token);
+  //       if (s) { console.log(this.user); }
+  //     }
+  //   });
+  // }
 }

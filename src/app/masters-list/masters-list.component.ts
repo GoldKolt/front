@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MasterService} from './master.service';
-import {Master} from './master';
+import {Master} from '../model/master';
 
 @Component({
   selector: 'app-masters-list',
@@ -11,7 +11,9 @@ import {Master} from './master';
 export class MastersListComponent implements OnInit {
 
   masters: Master[];
-  constructor(private masterListService: MasterService) { }
+  constructor(private masterListService: MasterService) {
+    this.masterListService.getAll().subscribe(res => { console.log(res); });
+  }
 
   ngOnInit() {
   }
