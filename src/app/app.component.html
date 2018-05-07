@@ -1,6 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar color="primary" class="toolbar" #container>
-  <button mat-icon-button (click)="sidenav.toggle()">
+  <button mat-icon-button (click)="sidenav.toggle(); Toogle()">
     <mat-icon>menu</mat-icon>
   </button>
   <a mat-button routerLink="/">{{title}}</a>
@@ -20,23 +20,14 @@
 
     <hr class="divider">
 
-    <div *ngIf="!currentUser; else loggedIn">
+    <div>
       <div>
         <button class="nav-button" mat-button routerLink="SignIn">Sign in</button>
       </div>
-      <div>
-        <button class="nav-button" mat-button routerLink="SignUp">Sign up</button>
+      <div *ngIf="currentUser">
+        <button class="nav-button" mat-button (click)="sidenav.toggle()">{{currentUser.email}}</button>
       </div>
     </div>
-
-    <ng-template #loggedIn>
-      <div>
-        <button class="nav-button" mat-button (click)="sidenav.toggle();">{{currentUser.email}}</button>
-      </div>
-      <div>
-        <button class="nav-button" mat-button (click)="sidenav.toggle(); LogOut()" routerLink="/">LogOut</button>
-      </div>
-    </ng-template>
 
   </mat-sidenav>
 

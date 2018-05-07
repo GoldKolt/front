@@ -7,4 +7,5 @@ export class Client {
   fullName: string;
   phoneNumber: string;
   requests: Request[];
+  id:string;
 }

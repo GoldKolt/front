@@ -1,5 +1,6 @@
-<form >
+<form>
   <h1 mat-dialog-title>Sign in</h1>
+  <input type="image" width="100" height="100" src="https://psv4.userapi.com/c834501/u239360004/docs/d10/0e0038d5ffce/avatar.png?extra=4cDuxmF8IBqGyQgQAznKIgt7BuRSeLxgiwtMCe2OVyTDkU0TJeLRa_mn5ixNxTuywWwAp0KZvGBUodpSTzRpAWbTL-adFY_9UzidTJZBTwOlDqYGZpcomBm-NGYD9X3_ShwChzR1yoY"/>
   <div mat-dialog-content>
     <mat-form-field>
       <input matInput placeholder="E-mail" name="email" [(ngModel)]="user.email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
@@ -13,9 +14,10 @@
         Type at least 4 characters
       </mat-error>
     </mat-form-field>
+    <mat-checkbox name="isMaster" [(ngModel)]="isMaster" >Sign up as master</mat-checkbox>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="SignIn()">Sing In</button>
-    <button mat-button (click)="SignUp()">Sing Up</button>
+    <button type="button" mat-button (click)="SignIn()">Sing In</button>
+    <button type="button" mat-button (click)="SignUp()">Sing Up</button>
   </div>
 </form>

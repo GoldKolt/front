@@ -5,4 +5,5 @@ export class Request {
   dateTimeCreation: string;
   necessaryOperations: Operation[];
   owner: string;
+  id: string;
 }

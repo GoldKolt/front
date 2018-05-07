@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, Router} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
@@ -14,11 +14,14 @@ import { SignInComponent } from './signin/signin.component';
 import { MaterialAngularModule } from './material-angular/material-angular.module';
 import { CookieModule } from 'ngx-cookie';
 import { UsersListComponent } from './users-list/users-list.component';
+import {UserService} from './users-list/user.service';
+import { CarServicesComponent } from './services-list/car-services/car-services.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Services', component: ServicesListComponent },
+  { path: 'Service/:id', component: CarServicesComponent },
   { path: 'Masters', component: MastersListComponent },
   { path: 'SignIn', component: SignInComponent }
   // { path: 'admin', component: AdminComponent,
@@ -35,7 +38,8 @@ const routes: Routes = [
     ServicesListComponent,
     MastersListComponent,
     SignInComponent,
-    UsersListComponent
+    UsersListComponent,
+    CarServicesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -48,7 +52,7 @@ const routes: Routes = [
     MaterialAngularModule
   ],
   entryComponents: [],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

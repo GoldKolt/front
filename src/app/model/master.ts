@@ -9,4 +9,5 @@ export class Master {
   fullName: string;
   phoneNumber: string;
   specializations: TypeOperation[];
+  id: string;
 }

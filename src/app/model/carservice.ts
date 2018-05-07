@@ -7,4 +7,11 @@ export class CarService {
   masters: Master[];
   requestsList: Request[];
   sparePartsCount: PairSparePartCount[];
+  id:string;
+
+  constructor() {
+    this.masters = [];
+    this.requestsList = [];
+    this.sparePartsCount = [];
+  }
 }

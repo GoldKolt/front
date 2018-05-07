@@ -1,0 +1,73 @@
+<h1>{{service.address}}</h1>
+
+<h3>Masters</h3>
+<table class="mat-table" *ngIf="service.masters; else noMasters">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Birthday</th>
+    <th class="mat-header-cell">Phone</th>
+    <th class="mat-header-cell">E-mail</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let master of service.masters" routerLink="/Master/{{master.id}}">
+    <td class="mat-cell">{{master.fullName}}</td>
+    <td class="mat-cell">{{master.birthDay}}</td>
+    <td class="mat-cell">{{master.phoneNumber}}</td>
+    <td class="mat-cell">{{master.account.email}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #noMasters>
+  <p>no masters</p>
+</ng-template>
+
+<h3>Requests</h3>
+<table class="mat-table" *ngIf="service.requestsList; else noRequests">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">owner</th>
+    <th class="mat-header-cell">dateTimeCreation</th>
+    <th class="mat-header-cell">dateTimeCompletion</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let request of service.requestsList">
+    <td class="mat-cell">{{request.owner}}</td>
+    <td class="mat-cell">{{request.dateTimeCreation}}</td>
+    <td class="mat-cell">{{request.dateTimeCompletion}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #noRequests>
+  <p>no requests</p>
+</ng-template>
+
+<h3>Parts</h3>
+<table class="mat-table" *ngIf="service.sparePartsCount; else noParts">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">Count</th>
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Car Brand</th>
+    <th class="mat-header-cell">Car Model</th>
+    <th class="mat-header-cell">Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let part of service.sparePartsCount">
+    <td class="mat-cell" >{{part.count}}</td>
+    <td class="mat-cell" >{{part.sparePart.name}}</td>
+    <td class="mat-cell" >{{part.sparePart.carBrand}}</td>
+    <td class="mat-cell" >{{part.sparePart.carModel}}</td>
+    <td class="mat-cell" >{{part.sparePart.price}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #noParts>
+  <p>no parts</p>
+</ng-template>

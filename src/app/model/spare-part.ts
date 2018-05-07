@@ -3,4 +3,5 @@ export class SparePart {
   carModel: string;
   name: string;
   price: number;
+  id: string;
 }
