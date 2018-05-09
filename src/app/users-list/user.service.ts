@@ -40,13 +40,17 @@ export class UserService {
     return this.http.post<User>(this.url, user, httpOptions);
   }
 
+  findUser(users: User[], user: User): User {
+    return users.find(value => value.email === user.email);
+  }
+
   getCurrentUser(): User {
-    console.log(this.user);
+    // console.log(this.user);
     return this.user;
   }
 
   setCurrentUser(user) {
     this.user = user;
-    console.log(this.user);
+    // console.log(this.user);
   }
 }

@@ -1,7 +1,9 @@
-<h1>{{service.address}}</h1>
+<mat-form-field>
+  <input matInput required placeholder="Address" name="address" [(ngModel)]="editingService.address">
+</mat-form-field>
 
 <h3>Masters</h3>
-<table class="mat-table" *ngIf="service.masters; else noMasters">
+<table class="mat-table" *ngIf="masters; else noMasters">
   <thead>
   <tr class="mat-header-row">
     <th class="mat-header-cell">Name</th>
@@ -10,10 +12,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let master of service.masters" routerLink="/Master/{{master.id}}">
-    <td class="mat-cell">{{master.fullName}}</td>
-    <td class="mat-cell">{{master.birthDay}}</td>
-    <td class="mat-cell">{{master.phoneNumber}}</td>
+  <tr class="mat-row" *ngFor="let master of masters">
+    <mat-checkbox class="example-margin" [checked]="checkMaster[masters.indexOf(master)]" (change)="CheckMaster(master)"></mat-checkbox>
+    <td class="mat-cell" routerLink="/Master/{{master.id}}">{{master.fullName}}</td>
+    <td class="mat-cell" routerLink="/Master/{{master.id}}">{{master.birthDay}}</td>
+    <td class="mat-cell" routerLink="/Master/{{master.id}}">{{master.phoneNumber}}</td>
   </tr>
   </tbody>
 </table>
@@ -23,7 +26,7 @@
 </ng-template>
 
 <h3>Requests</h3>
-<table class="mat-table" *ngIf="service.requestsList; else noRequests">
+<table class="mat-table" *ngIf="requests; else noRequests">
   <thead>
   <tr class="mat-header-row">
     <th class="mat-header-cell">owner</th>
@@ -32,7 +35,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let request of service.requestsList">
+  <tr class="mat-row" *ngFor="let request of requests">
+    <mat-checkbox class="example-margin" [checked]="checkRequest[requests.indexOf(request)]" (change)="CheckRequest(request)"></mat-checkbox>
     <td class="mat-cell">{{request.owner}}</td>
     <td class="mat-cell">{{request.dateTimeCreation}}</td>
     <td class="mat-cell">{{request.dateTimeCompletion}}</td>
@@ -45,7 +49,7 @@
 </ng-template>
 
 <h3>Parts</h3>
-<table class="mat-table" *ngIf="service.sparePartsCount; else noParts">
+<table class="mat-table" *ngIf="countSpareParts; else noParts">
   <thead>
   <tr class="mat-header-row">
     <th class="mat-header-cell">Count</th>
@@ -56,8 +60,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let part of service.sparePartsCount">
-    <td class="mat-cell" >{{part.count}}</td>
+  <tr class="mat-row" *ngFor="let part of countSpareParts">
+    <td class="mat-cell" >
+      <input type="number" name="partsCount" min="0" max="99999" [value]="part.count" (change)="ChangePartsCount($event, part)">
+    </td>
     <td class="mat-cell" >{{part.sparePart.name}}</td>
     <td class="mat-cell" >{{part.sparePart.carBrand}}</td>
     <td class="mat-cell" >{{part.sparePart.carModel}}</td>
@@ -69,3 +75,6 @@
 <ng-template #noParts>
   <p>no parts</p>
 </ng-template>
+
+<button (click)="Submit()" routerLink="/Service/Post">Submit</button>
+<button routerLink="/Services">Cancel</button>

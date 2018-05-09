@@ -8,6 +8,8 @@ export class CarServiceDataService {
 
   constructor(private http: HttpClient) { }
 
+  editingService: CarService;
+
   getAll() {
     return this.http.get<CarService[]>(this.url);
   }
@@ -16,25 +18,33 @@ export class CarServiceDataService {
     return this.http.get<CarService>(this.url + id);
   }
 
-  post(carService: CarService) {
+  post(carService: CarService, token: string) {
     const options = {
       headers: new HttpHeaders( {
-        'Content-Type': 'application/json'
-      })
-    };
-    return this.http.post<CarService>(this.url, options);
-  }
-
-  delete(id: string) {
-    return this.http.delete<CarService>(this.url + id);
-  }
-
-  put(carService: CarService) {
-    const options = {
-      headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        'Authorization': token
       })
     };
-    return this.http.put<CarService>(this.url, options);
+    return this.http.post<CarService>(this.url, carService, options);
+  }
+
+  delete(id: string, token: string) {
+    const options = {
+      headers: new HttpHeaders( {
+        'Authorization': token
+      })
+    };
+    return this.http.delete<CarService>(this.url + id, options);
+  }
+
+  put(carService: CarService, token: string) {
+    const options = {
+      headers: new HttpHeaders( {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      })
+    };
+    console.log(options);
+    return this.http.put<CarService>(this.url, carService, options);
   }
 }

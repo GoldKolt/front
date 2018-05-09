@@ -27,19 +27,18 @@ export class SignInComponent implements OnInit {
 
   constructor ( private userService: UserService, private router: Router ) { }
 
-  ngOnInit() {
-    this.user.roles = new Array<string>();
-  }
+  ngOnInit() { }
 
   SignIn(): void {
     if (this.user && this.user.email && this.user.password) {
       const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
       this.userService.getUsers(token).subscribe( resp => {
+        this.user.roles = this.userService.findUser(resp, this.user).roles;
         this.userService.setCurrentUser(this.user);
+        // console.log(this.user);
         this.router.navigate(['']);
       },
       (err: HttpErrorResponse) => {
-        console.log(err.status);
         this.user.password = '';
       });
     } else {
@@ -61,7 +60,6 @@ export class SignInComponent implements OnInit {
           this.router.navigate(['']);
         },
         (err) => {
-          console.log(err);
           this.user.password = '';
           this.user.roles = [];
         }

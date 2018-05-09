@@ -6,7 +6,13 @@
   </thead>
   <tbody>
     <tr class="mat-row" *ngFor="let carService of services">
+      <mat-checkbox *ngIf="user && user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[services.indexOf(carService)]" (change)="Check(carService)"></mat-checkbox>
       <td class="mat-cell" routerLink="/Service/{{carService.id}}">{{carService.address}}</td>
     </tr>
   </tbody>
 </table>
+
+<div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
+  <button (click)="Edit()" routerLink="/Service/Post">Add/Edit service</button>
+  <button (click)="Delete()">Delete</button>
+</div>

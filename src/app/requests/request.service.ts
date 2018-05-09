@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Master} from '../model/master';
+import {Request} from '../model/request';
 
 @Injectable()
-export class MasterService {
-  url = 'https://spp-bsuir.herokuapp.com/master/';
+export class RequestService {
+  url = 'https://spp-bsuir.herokuapp.com/request/';
 
   constructor(private http: HttpClient) { }
 
@@ -14,7 +14,7 @@ export class MasterService {
         'Authorization': token
       })
     };
-    return this.http.get<Master[]>(this.url, options);
+    return this.http.get<Request[]>(this.url, options);
   }
 
   get(id: string, token: string = '') {
@@ -23,7 +23,7 @@ export class MasterService {
         'Authorization': token
       })
     };
-    return this.http.get<Master>(this.url + id, options);
+    return this.http.get<Request>(this.url + id, options);
   }
 
   delete(id: string, token: string = '') {
@@ -32,27 +32,26 @@ export class MasterService {
         'Authorization': token
       })
     };
-    return this.http.delete<Master>(this.url + id, options);
+    return this.http.delete<Request>(this.url + id, options);
   }
 
-  post(master: Master, token: string = '') {
+  post(request: Request, token: string = '') {
     const options = {
       headers: new HttpHeaders( {
         'Content-Type': 'application/json',
         'Authorization': token
       })
     };
-    return this.http.post<Master>(this.url, master, options);
+    return this.http.post<Request>(this.url, request, options);
   }
 
-  put(master: Master, token: string = '') {
+  put(request: Request, token: string = '') {
     const options = {
       headers: new HttpHeaders( {
         'Content-Type': 'application/json',
         'Authorization': token
       })
     };
-    return this.http.put<Master>(this.url, master, options);
+    return this.http.put<Request>(this.url, request, options);
   }
-
 }
