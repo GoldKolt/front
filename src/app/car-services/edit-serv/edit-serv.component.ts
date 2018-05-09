@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {CarServiceDataService} from '../car-service-data.service';
-import {MasterService} from '../../masters-list/master.service';
+import {MasterService} from '../../masters/master.service';
 import {Master} from '../../model/master';
 import {CarService} from '../../model/carservice';
-import {UserService} from '../../users-list/user.service';
+import {UserService} from '../../users/user.service';
 import {User} from '../../model/user';
 import {SparePartService} from '../../spare-parts/spare-part.service';
 import {PairSparePartCount} from '../../model/pair-spare-part-count';
@@ -113,16 +113,18 @@ export class EditServComponent implements OnInit {
       this.editingService.requestsList = [];
       this.editingService.sparePartsCount = [];
       if (this.checkMaster) {
-        this.checkMaster.forEach(value => {
-          if (value) {
-            this.editingService.masters.push(this.masters[this.checkMaster.indexOf(value)]);
+        this.masters.forEach(value => {
+          const index = this.masters.indexOf(value);
+          if (this.checkMaster[index]) {
+            this.editingService.masters.push(value);
           }
         });
       }
       if (this.checkRequest) {
-        this.checkRequest.forEach(value => {
-          if (value) {
-            this.editingService.requestsList.push(this.requests[this.checkRequest.indexOf(value)]);
+        this.requests.forEach(value => {
+          const index = this.requests.indexOf(value);
+          if (this.checkRequest[index]) {
+            this.editingService.requestsList.push(value);
           }
         });
       }

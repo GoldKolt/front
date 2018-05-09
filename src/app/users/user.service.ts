@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../model/user';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
+import {CookieService} from 'ngx-cookie';
 
 @Injectable()
 export class UserService {
   url = 'https://spp-bsuir.herokuapp.com/user/';
   user: User;
 
-  constructor( private http: HttpClient, private route: ActivatedRoute ) { }
+  constructor( private http: HttpClient, private route: ActivatedRoute, private cookieService: CookieService) { }
 
   getUsers (token: string): Observable<User[]> {
     const options = {
@@ -45,12 +46,10 @@ export class UserService {
   }
 
   getCurrentUser(): User {
-    // console.log(this.user);
-    return this.user;
+    return this.cookieService.getObject('user') as User;
   }
 
   setCurrentUser(user) {
-    this.user = user;
-    // console.log(this.user);
+    this.cookieService.putObject('user', user, {});
   }
 }

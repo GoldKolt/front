@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user';
 import {FormControl, Validators} from '@angular/forms';
 import {SignErrorStateMatcher} from '../ErrorStateMatchers/sign-error-state-matcher';
-import {UserService} from '../users-list/user.service';
+import {UserService} from '../users/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 

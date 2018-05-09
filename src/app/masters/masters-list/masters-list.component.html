@@ -1,0 +1,17 @@
+<table class="mat-table">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">address</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let carService of masters">
+    <mat-checkbox *ngIf="user && user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[services.indexOf(carService)]" (change)="Check(carService)"></mat-checkbox>
+    <td class="mat-cell" routerLink="/Service/{{carService.id}}">{{carService.address}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
+  <button (click)="Delete()">Delete</button>
+</div>

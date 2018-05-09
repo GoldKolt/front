@@ -8,6 +8,8 @@ export class MasterService {
 
   constructor(private http: HttpClient) { }
 
+  editingMaster: Master;
+
   getAll(token: string = '') {
     const options = {
       headers: new HttpHeaders( {

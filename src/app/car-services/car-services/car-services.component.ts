@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CarServiceDataService} from '../car-service-data.service';
 import {CarService} from '../../model/carservice';
 import {Router} from '@angular/router';
-import {UserService} from '../../users-list/user.service';
+import {UserService} from '../../users/user.service';
 
 @Component({
   selector: 'app-car-services',

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CarService} from '../model/carservice';
-import {CarServiceDataService} from './car-service-data.service';
-import {UserService} from '../users-list/user.service';
-import {User} from '../model/user';
+import {CarService} from '../../model/carservice';
+import {CarServiceDataService} from '../car-service-data.service';
+import {UserService} from '../../users/user.service';
+import {User} from '../../model/user';
 
 @Component({
   selector: 'app-services-list',

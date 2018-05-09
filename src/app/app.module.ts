@@ -8,20 +8,23 @@ import {Routes, RouterModule, Router} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { ServicesListComponent } from './services-list/services-list.component';
-import { MastersListComponent } from './masters-list/masters-list.component';
+import { ServicesListComponent } from './car-services/services-list/services-list.component';
+import { MastersListComponent } from './masters/masters-list/masters-list.component';
 import { SignInComponent } from './signin/signin.component';
 import { MaterialAngularModule } from './material-angular/material-angular.module';
 import { CookieModule } from 'ngx-cookie';
-import { UsersListComponent } from './users-list/users-list.component';
-import {UserService} from './users-list/user.service';
-import { CarServicesComponent } from './services-list/car-services/car-services.component';
-import { MasterDetailComponent } from './masters-list/master-detail/master-detail.component';
-import { EditServComponent } from './services-list/edit-serv/edit-serv.component';
-import {MasterService} from './masters-list/master.service';
-import {CarServiceDataService} from './services-list/car-service-data.service';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import {UserService} from './users/user.service';
+import { CarServicesComponent } from './car-services/car-services/car-services.component';
+import { MasterDetailComponent } from './masters/master-detail/master-detail.component';
+import { EditServComponent } from './car-services/edit-serv/edit-serv.component';
+import {MasterService} from './masters/master.service';
+import {CarServiceDataService} from './car-services/car-service-data.service';
 import {SparePartService} from './spare-parts/spare-part.service';
 import {RequestService} from './requests/request.service';
+import {TypeOperationService} from './type-operations/type-operation.service';
+import {OperationService} from './operations/operation.service';
+import {ClientService} from './clients/client.service';
 
 
 const routes: Routes = [
@@ -57,7 +60,17 @@ const routes: Routes = [
     MaterialAngularModule
   ],
   entryComponents: [],
-  providers: [Location, UserService, CarServiceDataService, SparePartService, MasterService, RequestService],
+  providers: [
+    Location,
+    UserService,
+    CarServiceDataService,
+    SparePartService,
+    MasterService,
+    RequestService,
+    TypeOperationService,
+    OperationService,
+    ClientService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
