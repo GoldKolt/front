@@ -1,59 +1,33 @@
 import { Injectable } from '@angular/core';
-import {Mail} from '../model/mail';
-import {HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ReportService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getCarServiceReport(token: string = '') {
-    const url = 'https://spp-bsuir.herokuapp.com/report/carServices';
-    const options = {
-      headers: new HttpHeaders( {
-        'Authorization': token
-      })
-    };
-    return this.http.get(url, mail, options);
+  getCarServiceReport(name: string = '') {
+    const url = 'https://spp-bsuir.herokuapp.com/report/carServices?reportType=' + name;
+    return this.http.get(url, {responseType: 'blob'});
   }
 
-  getClientReport(token: string = '') {
-    const url = 'https://spp-bsuir.herokuapp.com/report/clients';
-    const options = {
-      headers: new HttpHeaders( {
-        'Authorization': token
-      })
-    };
-    return this.http.get(url, mail, options);
+  getClientReport(name: string = '') {
+    const url = 'https://spp-bsuir.herokuapp.com/report/clients?reportType=' + name;
+    return this.http.get(url, {responseType: 'blob'});
   }
 
-  getMasterReport(token: string = '') {
-    const url = 'https://spp-bsuir.herokuapp.com/report/masters';
-    const options = {
-      headers: new HttpHeaders( {
-        'Authorization': token
-      })
-    };
-    return this.http.get(url, mail, options);
+  getMasterReport(name: string = '') {
+    const url = 'https://spp-bsuir.herokuapp.com/report/masters?reportType=' + name;
+    return this.http.get(url, {responseType: 'blob'});
   }
 
-  getClientRequestReport(token: string = '') {
-    const url = 'https://spp-bsuir.herokuapp.com/report/requests';
-    const options = {
-      headers: new HttpHeaders( {
-        'Authorization': token
-      })
-    };
-    return this.http.get(url, mail, options);
+  getRequestReport(name: string = '') {
+    const url = 'https://spp-bsuir.herokuapp.com/report/requests?reportType=' + name;
+    return this.http.get(url, {responseType: 'blob'});
   }
 
-  getSparePartReport(token: string = '') {
-    const url = 'https://spp-bsuir.herokuapp.com/report/spareParts';
-    const options = {
-      headers: new HttpHeaders( {
-        'Authorization': token
-      })
-    };
-    return this.http.get(url, mail, options);
+  getSparePartReport(name: string = '') {
+    const url = 'https://spp-bsuir.herokuapp.com/report/spareParts?reportType=' + name;
+    return this.http.get(url, {responseType: 'blob'});
   }
 }
