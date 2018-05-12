@@ -5,6 +5,7 @@ import {SparePart} from '../model/spare-part';
 @Injectable()
 export class SparePartService {
   url = 'https://spp-bsuir.herokuapp.com/sparePart/';
+  editingSparePart: SparePart;
 
   constructor(private http: HttpClient) { }
 

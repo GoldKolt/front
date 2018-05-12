@@ -1,0 +1,27 @@
+<table class="mat-table">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell" *ngIf="user && user.roles.includes('ROLE_ADMIN')"></th>
+    <th class="mat-header-cell">ID</th>
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Car brand</th>
+    <th class="mat-header-cell">Car model</th>
+    <th class="mat-header-cell">Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let sparePart of spareParts">
+    <td *ngIf="user && user.roles.includes('ROLE_ADMIN')"><mat-checkbox class="example-margin" [checked]="check[spareParts.indexOf(sparePart)]" (change)="Check(sparePart)"></mat-checkbox></td>
+    <td class="mat-cell" routerLink="/SparePart/{{sparePart.id}}">{{sparePart.id}}</td>
+    <td class="mat-cell" routerLink="/SparePart/{{sparePart.id}}">{{sparePart.name}}</td>
+    <td class="mat-cell" routerLink="/SparePart/{{sparePart.id}}">{{sparePart.carBrand}}</td>
+    <td class="mat-cell" routerLink="/SparePart/{{sparePart.id}}">{{sparePart.carModel}}</td>
+    <td class="mat-cell" routerLink="/SparePart/{{sparePart.id}}">{{sparePart.price}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
+  <button (click)="Edit()" routerLink="/SparePart/Post">Add/Edit spare part</button>
+  <button (click)="Delete()">Delete</button>
+</div>

@@ -1,0 +1,16 @@
+<div *ngIf="sparePart">
+  <mat-form-field>
+    <input matInput required placeholder="Name" name="name" [(ngModel)]="sparePart.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required placeholder="Car Brand" name="carBrand" [(ngModel)]="sparePart.carBrand">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required placeholder="Car model" name="carModel" [(ngModel)]="sparePart.carModel">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required placeholder="Price" name="price" [(ngModel)]="sparePart.price">
+  </mat-form-field>
+
+  <button (click)="Submit()">Save</button>
+</div>

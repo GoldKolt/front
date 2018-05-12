@@ -39,8 +39,8 @@ export class MasterDetailEditComponent implements OnInit {
       this.operations = operations;
       if (operations) {
         this.checkOperation = new Array<boolean>(operations.length);
-        this.operations.forEach(value => {
-          const index = this.master.acceptedOperation.findIndex(value1 => value1.id === value.id);
+        this.master.acceptedOperation.forEach(value => {
+          const index = this.operations.findIndex(value1 => value1.id === value.id);
           if (index !== -1) {
             this.checkOperation[index] = true;
           }
@@ -52,8 +52,8 @@ export class MasterDetailEditComponent implements OnInit {
       this.specializations = specializations;
       if (specializations) {
         this.checkSpecialization = new Array<boolean>(specializations.length);
-        this.specializations.forEach(value => {
-          const index = this.master.specializations.findIndex(value1 => value1.id === value.id);
+        this.master.specializations.forEach(value => {
+          const index = this.specializations.findIndex(value1 => value1.id === value.id);
           if (index !== -1) {
             this.checkSpecialization[index] = true;
           }

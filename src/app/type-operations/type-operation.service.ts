@@ -5,6 +5,7 @@ import {TypeOperation} from '../model/type-operation';
 @Injectable()
 export class TypeOperationService {
   url = 'https://spp-bsuir.herokuapp.com/typeOperation/';
+  editingType: TypeOperation;
 
   constructor(private http: HttpClient) { }
 

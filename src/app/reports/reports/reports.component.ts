@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class ReportsComponent implements OnInit {
 
-  reportType: string;
+  reportType = 'PDF';
   constructor(private reportService: ReportService, private router: Router) { }
 
   ngOnInit() {

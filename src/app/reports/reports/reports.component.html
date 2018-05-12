@@ -1,5 +1,9 @@
 <mat-form-field>
-  <input matInput required placeholder="Name" name="fullName" [(ngModel)]="reportType">
+  <mat-select [(value)]="reportType">
+    <mat-option value="PDF">PDF</mat-option>
+    <mat-option value="CSV">CSV</mat-option>
+    <mat-option value="XLS">XLS</mat-option>
+  </mat-select>
 </mat-form-field>
 <button (click)="CarServiceReport()">Car service report</button>
 <button (click)="ClientReport()">Client report</button>

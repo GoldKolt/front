@@ -29,6 +29,12 @@ import { ClientsListComponent } from './clients/clients-list/clients-list.compon
 import { ClientDetailComponent } from './clients/client-detail/client-detail.component';
 import { ClientDetailEditComponent } from './clients/client-detail-edit/client-detail-edit.component';
 import { ReportsComponent } from './reports/reports/reports.component';
+import { TypeOperationsListComponent } from './type-operations/type-operations-list/type-operations-list.component';
+import { SparePartsListComponent } from './spare-parts/spare-parts-list/spare-parts-list.component';
+import { TypeOperationDetailComponent } from './type-operations/type-operation-detail/type-operation-detail.component';
+import { TypeOperationEditComponent } from './type-operations/type-operation-edit/type-operation-edit.component';
+import { SparePartDetailComponent } from './spare-parts/spare-part-detail/spare-part-detail.component';
+import { SparePartEditComponent } from './spare-parts/spare-part-edit/spare-part-edit.component';
 
 
 const routes: Routes = [
@@ -40,6 +46,12 @@ const routes: Routes = [
   { path: 'Master/:id', component: MasterDetailComponent },
   { path: 'Clients', component: ClientsListComponent },
   { path: 'Client/:id', component: ClientDetailComponent },
+  { path: 'SparePart/Post', component: SparePartEditComponent },
+  { path: 'SpareParts', component: SparePartsListComponent },
+  { path: 'SparePart/:id', component: SparePartDetailComponent },
+  { path: 'TypeOperation/Post', component: TypeOperationEditComponent },
+  { path: 'TypeOperations', component: TypeOperationsListComponent},
+  { path: 'TypeOperation/:id', component: TypeOperationDetailComponent },
   { path: 'SignIn', component: SignInComponent },
   { path: 'Reports', component: ReportsComponent}
 ];
@@ -58,7 +70,13 @@ const routes: Routes = [
     ClientsListComponent,
     ClientDetailComponent,
     ClientDetailEditComponent,
-    ReportsComponent
+    ReportsComponent,
+    TypeOperationsListComponent,
+    SparePartsListComponent,
+    TypeOperationDetailComponent,
+    TypeOperationEditComponent,
+    SparePartDetailComponent,
+    SparePartEditComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

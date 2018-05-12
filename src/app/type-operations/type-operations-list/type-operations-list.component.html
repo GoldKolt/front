@@ -1,0 +1,25 @@
+<table class="mat-table">
+  <thead>
+    <tr class="mat-header-row">
+      <th *ngIf="user && user.roles.includes('ROLE_ADMIN')"></th>
+      <th class="mat-header-cell">ID</th>
+      <th class="mat-header-cell">Name</th>
+      <th class="mat-header-cell">Price</th>
+      <th class="mat-header-cell">Spare part</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="mat-row" *ngFor="let type of types">
+      <td *ngIf="user && user.roles.includes('ROLE_ADMIN')"><mat-checkbox *ngIf="user && user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[types.indexOf(type)]" (change)="Check(type)"></mat-checkbox></td>
+      <td class="mat-cell" routerLink="/TypeOperation/{{type.id}}">{{type.id}}</td>
+      <td class="mat-cell" routerLink="/TypeOperation/{{type.id}}">{{type.name}}</td>
+      <td class="mat-cell" routerLink="/TypeOperation/{{type.id}}">{{type.price}}</td>
+      <td class="mat-cell" routerLink="/TypeOperation/{{type.id}}">{{type.sparePartIsNecessary}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
+  <button (click)="Edit()" routerLink="/TypeOperation/Post">Add/Edit operation type</button>
+  <button (click)="Delete()">Delete</button>
+</div>

@@ -50,8 +50,8 @@ export class EditServComponent implements OnInit {
       this.masters = masters;
       if (masters) {
         this.checkMaster = new Array<boolean>(masters.length);
-        this.masters.forEach(value => {
-          const index = this.editingService.masters.findIndex(value1 => value1.id === value.id);
+        this.editingService.masters.forEach(value => {
+          const index = this.masters.findIndex(value1 => value1.id === value.id);
           if (index !== -1) {
             this.checkMaster[index] = true;
           }
@@ -67,8 +67,8 @@ export class EditServComponent implements OnInit {
           newPart.count = 0;
           this.countSpareParts.push(newPart);
         });
-        this.countSpareParts.forEach(value => {
-          const sparePartIndex = this.editingService.sparePartsCount.findIndex(value1 => value1.sparePart.id === value.sparePart.id );
+        this.editingService.sparePartsCount.forEach(value => {
+          const sparePartIndex = this.countSpareParts.findIndex(value1 => value1.sparePart.id === value.sparePart.id );
           if (sparePartIndex !== -1) {
             value.count = this.editingService.sparePartsCount[sparePartIndex].count;
           }
@@ -80,8 +80,8 @@ export class EditServComponent implements OnInit {
       this.requests = requests;
       if (requests) {
         this.checkRequest = new Array<boolean>(requests.length);
-        this.requests.forEach(value => {
-          const index = this.editingService.requestsList.findIndex(value1 => value1.id === value.id);
+        this.editingService.requestsList.forEach(value => {
+          const index = this.requests.findIndex(value1 => value1.id === value.id);
           if (index !== -1) {
             this.checkRequest[index] = true;
           }
