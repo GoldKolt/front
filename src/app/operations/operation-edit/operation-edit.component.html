@@ -1,0 +1,59 @@
+<h1>Types of operation</h1>
+<table class="mat-table" *ngIf="types; else noTypeOperations">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Car brand</th>
+    <th class="mat-header-cell">Car model</th>
+    <th class="mat-header-cell">Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let type of types">
+    <mat-checkbox class="example-margin" [checked]="checkType[types.indexOf(type)]" (change)="CheckType(type)"></mat-checkbox>
+    <td class="mat-cell">{{type.name}}</td>
+    <td class="mat-cell">{{type.price}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #noTypeOperations>
+  <p>no types of operation</p>
+</ng-template>
+
+<div *ngIf="indexTypeOperation>-1 && types[indexTypeOperation].sparePartIsNecessary">
+  <h1>Spare parts</h1>
+  <table class="mat-table" *ngIf="spareParts; else noSpareParts">
+    <thead>
+    <tr class="mat-header-row">
+      <th class="mat-header-cell">Name</th>
+      <th class="mat-header-cell">Car brand</th>
+      <th class="mat-header-cell">Car model</th>
+      <th class="mat-header-cell">Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="mat-row" *ngFor="let sparePart of spareParts">
+      <mat-checkbox class="example-margin" [checked]="checkSparePart[spareParts.indexOf(sparePart)]" (change)="CheckSparePart(sparePart)"></mat-checkbox>
+      <td class="mat-cell">{{sparePart.name}}</td>
+      <td class="mat-cell">{{sparePart.carBrand}}</td>
+      <td class="mat-cell">{{sparePart.carModel}}</td>
+      <td class="mat-cell">{{sparePart.price}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noSpareParts>
+    <p>no spare parts</p>
+  </ng-template>
+</div>
+
+<mat-select [(value)]="status">
+  <mat-option value="WAITING">WAITING</mat-option>
+  <mat-option value="ACCEPTED">ACCEPTED</mat-option>
+  <mat-option value="PROCESSING">PROCESSING</mat-option>
+  <mat-option value="FAILED">FAILED</mat-option>
+  <mat-option value="SUCCESS">SUCCESS</mat-option>
+</mat-select>
+
+<button (click)="Submit()">Save</button>

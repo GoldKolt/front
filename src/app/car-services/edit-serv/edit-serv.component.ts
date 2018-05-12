@@ -7,8 +7,6 @@ import {UserService} from '../../users/user.service';
 import {User} from '../../model/user';
 import {SparePartService} from '../../spare-parts/spare-part.service';
 import {PairSparePartCount} from '../../model/pair-spare-part-count';
-import {RequestService} from '../../requests/request.service';
-import {Request} from '../../model/request';
 import {Location} from '@angular/common';
 
 @Component({
@@ -20,12 +18,10 @@ export class EditServComponent implements OnInit {
 
   masters: Master[];
   countSpareParts: PairSparePartCount[] = [];
-  requests: Request[];
   editingService: CarService;
   user: User;
   token: string;
   checkMaster: boolean[];
-  checkRequest: boolean[];
   post = false;
 
   constructor(
@@ -33,7 +29,6 @@ export class EditServComponent implements OnInit {
     private masterService: MasterService,
     private userService: UserService,
     private sparePartService: SparePartService,
-    private requestService: RequestService,
     private location: Location
   ) { }
 
@@ -50,12 +45,14 @@ export class EditServComponent implements OnInit {
       this.masters = masters;
       if (masters) {
         this.checkMaster = new Array<boolean>(masters.length);
-        this.editingService.masters.forEach(value => {
-          const index = this.masters.findIndex(value1 => value1.id === value.id);
-          if (index !== -1) {
-            this.checkMaster[index] = true;
-          }
-        });
+        if (this.editingService.masters) {
+          this.editingService.masters.forEach(value => {
+            const index = this.masters.findIndex(value1 => value1.id === value.id);
+            if (index !== -1) {
+              this.checkMaster[index] = true;
+            }
+          });
+        }
       }
     });
 
@@ -67,25 +64,14 @@ export class EditServComponent implements OnInit {
           newPart.count = 0;
           this.countSpareParts.push(newPart);
         });
-        this.editingService.sparePartsCount.forEach(value => {
-          const sparePartIndex = this.countSpareParts.findIndex(value1 => value1.sparePart.id === value.sparePart.id );
-          if (sparePartIndex !== -1) {
-            value.count = this.editingService.sparePartsCount[sparePartIndex].count;
-          }
-        });
-      }
-    });
-
-    this.requestService.getAll(this.token).subscribe(requests => {
-      this.requests = requests;
-      if (requests) {
-        this.checkRequest = new Array<boolean>(requests.length);
-        this.editingService.requestsList.forEach(value => {
-          const index = this.requests.findIndex(value1 => value1.id === value.id);
-          if (index !== -1) {
-            this.checkRequest[index] = true;
-          }
-        });
+        if (this.editingService.sparePartsCount) {
+          this.editingService.sparePartsCount.forEach(value => {
+            const sparePartIndex = this.countSpareParts.findIndex(value1 => value1.sparePart.id === value.sparePart.id );
+            if (sparePartIndex !== -1) {
+              value.count = this.editingService.sparePartsCount[sparePartIndex].count;
+            }
+          });
+        }
       }
     });
   }
@@ -104,29 +90,15 @@ export class EditServComponent implements OnInit {
     }
   }
 
-  CheckRequest(request) {
-    const index = this.requests.indexOf(request);
-    this.checkRequest[index] = !this.checkRequest[index];
-  }
-
   Submit() {
     if (this.editingService.address) {
       this.editingService.masters = [];
-      this.editingService.requestsList = [];
       this.editingService.sparePartsCount = [];
       if (this.checkMaster) {
         this.masters.forEach(value => {
           const index = this.masters.indexOf(value);
           if (this.checkMaster[index]) {
             this.editingService.masters.push(value);
-          }
-        });
-      }
-      if (this.checkRequest) {
-        this.requests.forEach(value => {
-          const index = this.requests.indexOf(value);
-          if (this.checkRequest[index]) {
-            this.editingService.requestsList.push(value);
           }
         });
       }

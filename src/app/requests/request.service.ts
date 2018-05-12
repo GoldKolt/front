@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Request} from '../model/request';
+import {Client} from '../model/client';
 
 @Injectable()
 export class RequestService {
   url = 'https://spp-bsuir.herokuapp.com/request/';
+  editingRequest: Request;
+  client: Client;
 
   constructor(private http: HttpClient) { }
 

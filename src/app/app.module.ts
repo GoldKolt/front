@@ -35,6 +35,11 @@ import { TypeOperationDetailComponent } from './type-operations/type-operation-d
 import { TypeOperationEditComponent } from './type-operations/type-operation-edit/type-operation-edit.component';
 import { SparePartDetailComponent } from './spare-parts/spare-part-detail/spare-part-detail.component';
 import { SparePartEditComponent } from './spare-parts/spare-part-edit/spare-part-edit.component';
+import { OperationsListComponent } from './operations/operations-list/operations-list.component';
+import { OperationDetailComponent } from './operations/operation-detail/operation-detail.component';
+import { OperationEditComponent } from './operations/operation-edit/operation-edit.component';
+import { RequestsListComponent } from './requests/requests-list/requests-list.component';
+import { RequestEditComponent } from './requests/request-edit/request-edit.component';
 
 
 const routes: Routes = [
@@ -52,6 +57,10 @@ const routes: Routes = [
   { path: 'TypeOperation/Post', component: TypeOperationEditComponent },
   { path: 'TypeOperations', component: TypeOperationsListComponent},
   { path: 'TypeOperation/:id', component: TypeOperationDetailComponent },
+  { path: 'Request/Post', component: RequestEditComponent },
+  { path: 'Requests', component: RequestsListComponent },
+  { path: 'Operation/Post', component: OperationEditComponent },
+  { path: 'Operations', component: OperationsListComponent },
   { path: 'SignIn', component: SignInComponent },
   { path: 'Reports', component: ReportsComponent}
 ];
@@ -76,7 +85,12 @@ const routes: Routes = [
     TypeOperationDetailComponent,
     TypeOperationEditComponent,
     SparePartDetailComponent,
-    SparePartEditComponent
+    SparePartEditComponent,
+    OperationsListComponent,
+    OperationDetailComponent,
+    OperationEditComponent,
+    RequestsListComponent,
+    RequestEditComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

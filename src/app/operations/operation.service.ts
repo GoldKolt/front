@@ -5,6 +5,7 @@ import {Operation} from '../model/operation';
 @Injectable()
 export class OperationService {
   url = 'https://spp-bsuir.herokuapp.com/operation/';
+  editingOperation: Operation;
 
   constructor(private http: HttpClient) { }
 

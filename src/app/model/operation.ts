@@ -5,5 +5,5 @@ export class Operation {
   sparePart: SparePart;
   status: string;
   typeOperation: TypeOperation;
-  id:string;
+  id: string;
 }
