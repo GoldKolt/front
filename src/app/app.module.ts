@@ -13,7 +13,6 @@ import { MastersListComponent } from './masters/masters-list/masters-list.compon
 import { SignInComponent } from './signin/signin.component';
 import { MaterialAngularModule } from './material-angular/material-angular.module';
 import { CookieModule } from 'ngx-cookie';
-import { UsersListComponent } from './users/users-list/users-list.component';
 import {UserService} from './users/user.service';
 import { CarServicesComponent } from './car-services/car-services/car-services.component';
 import { MasterDetailComponent } from './masters/master-detail/master-detail.component';
@@ -25,16 +24,24 @@ import {RequestService} from './requests/request.service';
 import {TypeOperationService} from './type-operations/type-operation.service';
 import {OperationService} from './operations/operation.service';
 import {ClientService} from './clients/client.service';
+import { MasterDetailEditComponent } from './masters/master-detail-edit/master-detail-edit.component';
+import { ClientsListComponent } from './clients/clients-list/clients-list.component';
+import { ClientDetailComponent } from './clients/client-detail/client-detail.component';
+import { ClientDetailEditComponent } from './clients/client-detail-edit/client-detail-edit.component';
+import { ReportsComponent } from './reports/reports/reports.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full'},
   { path: 'Service/Post', component: EditServComponent },
   { path: 'Services', component: ServicesListComponent},
   { path: 'Service/:id', component: CarServicesComponent },
   { path: 'Masters', component: MastersListComponent },
   { path: 'Master/:id', component: MasterDetailComponent },
-  { path: 'SignIn', component: SignInComponent }
+  { path: 'Clients', component: ClientsListComponent },
+  { path: 'Client/:id', component: ClientDetailComponent },
+  { path: 'SignIn', component: SignInComponent },
+  { path: 'Reports', component: ReportsComponent}
 ];
 
 @NgModule({
@@ -44,10 +51,14 @@ const routes: Routes = [
     ServicesListComponent,
     MastersListComponent,
     SignInComponent,
-    UsersListComponent,
     CarServicesComponent,
     MasterDetailComponent,
-    EditServComponent
+    EditServComponent,
+    MasterDetailEditComponent,
+    ClientsListComponent,
+    ClientDetailComponent,
+    ClientDetailEditComponent,
+    ReportsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

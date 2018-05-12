@@ -1,8 +1,15 @@
-<h1>{{master.fullName}}</h1>
-<h3>Birthday: {{master.birthDay}}</h3>
-<h3>Phone: {{master.phoneNumber}}</h3>
+<mat-form-field>
+  <input matInput required placeholder="Name" name="fullName" [(ngModel)]="master.fullName">
+</mat-form-field>
+<mat-form-field>
+  <input matInput required placeholder="Birthday" name="birthDay" [(ngModel)]="master.birthDay">
+</mat-form-field>
+<mat-form-field>
+  <input matInput required placeholder="Phone" name="phoneNumber" [(ngModel)]="master.phoneNumber">
+</mat-form-field>
+
 <h3>Accepted operations</h3>
-<table class="mat-table" *ngIf="master.acceptedOperation; else noOperations">
+<table class="mat-table" *ngIf="operations; else noOperations">
   <thead>
   <tr class="mat-header-row">
     <th class="mat-header-cell">Id</th>
@@ -12,7 +19,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let operation of master.acceptedOperation">
+  <tr class="mat-row" *ngFor="let operation of operations">
+    <mat-checkbox class="example-margin" [checked]="checkOperation[operations.indexOf(operation)]" (change)="CheckOperation(operation)"></mat-checkbox>
     <td class="mat-cell">{{operation.typeOperation.id}}</td>
     <td class="mat-cell">{{operation.typeOperation.name}}</td>
     <td class="mat-cell">{{operation.typeOperation.price}}</td>
@@ -31,7 +39,7 @@
 </ng-template>
 
 <h3>Specializations</h3>
-<table class="mat-table" *ngIf="master.specializations; else noSpecializations">
+<table class="mat-table" *ngIf="specializations; else noSpecializations">
   <thead>
   <tr class="mat-header-row">
     <th class="mat-header-cell">Name</th>
@@ -39,7 +47,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let specialization of master.specializations">
+  <tr class="mat-row" *ngFor="let specialization of specializations">
+    <mat-checkbox class="example-margin" [checked]="checkSpecialization[specializations.indexOf(specialization)]" (change)="CheckSpecialization(specialization)"></mat-checkbox>
     <td class="mat-cell">{{specialization.name}}</td>
     <td class="mat-cell">{{specialization.price}}</td>
   </tr>
@@ -49,3 +58,6 @@
 <ng-template #noSpecializations>
   <p>no specializations</p>
 </ng-template>
+
+<h1 *ngIf="saved">Saved</h1>
+<button (click)="Submit()">Save</button>

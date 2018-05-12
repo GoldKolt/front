@@ -44,7 +44,6 @@ export class CarServiceDataService {
         'Authorization': token
       })
     };
-    console.log(options);
     return this.http.put<CarService>(this.url, carService, options);
   }
 }

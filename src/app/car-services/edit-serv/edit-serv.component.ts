@@ -45,11 +45,11 @@ export class EditServComponent implements OnInit {
       this.editingService = new CarService();
       this.post = true;
     }
+
     this.masterService.getAll(this.token).subscribe(masters => {
       this.masters = masters;
       if (masters) {
         this.checkMaster = new Array<boolean>(masters.length);
-        console.log(this.editingService.masters);
         this.masters.forEach(value => {
           const index = this.editingService.masters.findIndex(value1 => value1.id === value.id);
           if (index !== -1) {
@@ -58,6 +58,7 @@ export class EditServComponent implements OnInit {
         });
       }
     });
+
     this.sparePartService.getAll(this.token).subscribe( spareParts => {
       if (spareParts) {
         spareParts.forEach(value => {
@@ -74,6 +75,7 @@ export class EditServComponent implements OnInit {
         });
       }
     });
+
     this.requestService.getAll(this.token).subscribe(requests => {
       this.requests = requests;
       if (requests) {
@@ -138,7 +140,6 @@ export class EditServComponent implements OnInit {
           }
         });
       }
-      console.log(this.token);
       if (this.post) {
         this.carServiceDataService.post(this.editingService, this.token).subscribe(() => this.location.back());
       } else {

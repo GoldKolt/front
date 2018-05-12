@@ -3,11 +3,11 @@ import {User} from './user';
 import {TypeOperation} from './type-operation';
 
 export class Master {
-  acceptedOperation: [Operation];
+  acceptedOperation: Operation[] = [];
   account: User;
   birthDay: string;
   fullName: string;
   phoneNumber: string;
-  specializations: TypeOperation[];
+  specializations: TypeOperation[] = [];
   id: string;
 }

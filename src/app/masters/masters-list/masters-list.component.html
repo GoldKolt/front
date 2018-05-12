@@ -5,9 +5,9 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let carService of masters">
-    <mat-checkbox *ngIf="user && user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[services.indexOf(carService)]" (change)="Check(carService)"></mat-checkbox>
-    <td class="mat-cell" routerLink="/Service/{{carService.id}}">{{carService.address}}</td>
+  <tr class="mat-row" *ngFor="let master of masters">
+    <mat-checkbox *ngIf="user && user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[masters.indexOf(master)]" (change)="Check(master)"></mat-checkbox>
+    <td class="mat-cell" routerLink="/Master/{{master.id}}">{{master.fullName}}</td>
   </tr>
   </tbody>
 </table>

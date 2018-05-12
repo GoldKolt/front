@@ -5,6 +5,10 @@ import {SignErrorStateMatcher} from '../ErrorStateMatchers/sign-error-state-matc
 import {UserService} from '../users/user.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {MasterService} from '../masters/master.service';
+import {ClientService} from '../clients/client.service';
+import {Master} from '../model/master';
+import {Client} from '../model/client';
 
 @Component({
   selector: 'app-signin',
@@ -25,7 +29,12 @@ export class SignInComponent implements OnInit {
   matcher = new SignErrorStateMatcher();
   isMaster = false;
 
-  constructor ( private userService: UserService, private router: Router ) { }
+  constructor (
+    private userService: UserService,
+    private router: Router,
+    private masterService: MasterService,
+    private clientService: ClientService
+  ) { }
 
   ngOnInit() { }
 
@@ -34,8 +43,8 @@ export class SignInComponent implements OnInit {
       const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
       this.userService.getUsers(token).subscribe( resp => {
         this.user.roles = this.userService.findUser(resp, this.user).roles;
+        this.user.id = this.userService.findUser(resp, this.user).id;
         this.userService.setCurrentUser(this.user);
-        // console.log(this.user);
         this.router.navigate(['']);
       },
       (err: HttpErrorResponse) => {
@@ -53,11 +62,22 @@ export class SignInComponent implements OnInit {
       } else {
         this.user.roles.push('ROLE_CLIENT');
       }
-      const returnedUser = this.userService.postUser(this.user).subscribe(
-        user => {
-          this.userService.setCurrentUser(user);
-          this.user.roles = [];
-          this.router.navigate(['']);
+      const thisUser = this.user;
+      const returnedUser = this.userService.postUser(thisUser).subscribe(
+        (user) => {
+          thisUser.id = user.id;
+          this.userService.setCurrentUser(thisUser);
+          const token = 'Basic ' + btoa(thisUser.email + ':' + thisUser.password);
+          if (this.user.roles.includes('ROLE_MASTER')) {
+            const newMaster = new Master();
+            newMaster.account = user;
+            this.masterService.post(newMaster, token).subscribe(() => this.router.navigate(['']));
+          }
+          if (this.user.roles.includes('ROLE_CLIENT')) {
+            const newClient = new Client();
+            newClient.account = user;
+            this.clientService.post(newClient, token).subscribe(() => this.router.navigate(['']));
+          }
         },
         (err) => {
           this.user.password = '';

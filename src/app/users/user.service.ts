@@ -52,4 +52,8 @@ export class UserService {
   setCurrentUser(user) {
     this.cookieService.putObject('user', user, {});
   }
+
+  clearCurrentUser() {
+    this.cookieService.remove('user');
+  }
 }

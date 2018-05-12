@@ -1,0 +1,14 @@
+<mat-form-field>
+  <input matInput required placeholder="Name" name="fullName" [(ngModel)]="client.fullName">
+</mat-form-field>
+<mat-form-field>
+  <input matInput type="date" required placeholder="Birthday" name="birthDay" [(ngModel)]="client.birthDay">
+</mat-form-field>
+<mat-form-field>
+  <input matInput type="tel" required placeholder="Phone" name="phoneNumber" [(ngModel)]="client.phoneNumber">
+</mat-form-field>
+
+<h3 routerLink="/">Requests</h3>
+
+<h1 *ngIf="saved">Saved</h1>
+<button (click)="Submit()">Save</button>

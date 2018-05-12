@@ -26,12 +26,10 @@ export class MastersListComponent implements OnInit {
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
     this.masterListService.getAll(this.token).subscribe(data => {
       this.masters = data;
-      this.check = new Array<boolean>(data.length);
+      if (data) {
+        this.check = new Array<boolean>(data.length);
+      }
     });
-  }
-
-  Edit() {
-    this.masterListService.editingMaster = this.checkedMaster;
   }
 
   Delete() {

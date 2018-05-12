@@ -15,16 +15,20 @@
       <button class="nav-button" mat-button routerLink="/Masters">Masters</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Contacts">Contacts</button>
+      <button class="nav-button" mat-button routerLink="/Reports">Reports</button>
     </div>
 
     <hr class="divider">
 
-    <div>
+    <div *ngIf="!currentUser">
+      <button class="nav-button" mat-button routerLink="SignIn">Sign in</button>
+    </div>
+
+    <div *ngIf="currentUser">
       <div>
-        <button class="nav-button" mat-button routerLink="SignIn">Sign in</button>
+        <button class="nav-button" mat-button (click)="LogOff()">LogOff</button>
       </div>
-      <div *ngIf="currentUser">
+      <div>
         <button class="nav-button" mat-button (click)="sidenav.toggle()">{{currentUser.email}}</button>
       </div>
     </div>

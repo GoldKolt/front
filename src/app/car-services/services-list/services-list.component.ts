@@ -21,7 +21,9 @@ export class ServicesListComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
     this.carServiceDataService.getAll().subscribe(data => {
       this.services = data;
-      this.check = new Array<boolean>(data.length);
+      if (data) {
+        this.check = new Array<boolean>(data.length);
+      }
     });
   }
 

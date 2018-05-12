@@ -6,6 +6,6 @@ export class Client {
   birthDay: string;
   fullName: string;
   phoneNumber: string;
-  requests: Request[];
-  id:string;
+  requests: Request[] = [];
+  id: string;
 }

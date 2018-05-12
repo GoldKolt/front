@@ -1,0 +1,25 @@
+<h1>{{client.fullName}}</h1>
+<h3>Birthday: {{client.birthDay}}</h3>
+<h3>Phone: {{client.phoneNumber}}</h3>
+
+<h3>Requests</h3>
+<table class="mat-table" *ngIf="client.requests; else noRequests">
+  <thead>
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">owner</th>
+    <th class="mat-header-cell">dateTimeCreation</th>
+    <th class="mat-header-cell">dateTimeCompletion</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="mat-row" *ngFor="let request of client.requests">
+    <td class="mat-cell">{{request.owner}}</td>
+    <td class="mat-cell">{{request.dateTimeCreation}}</td>
+    <td class="mat-cell">{{request.dateTimeCompletion}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<ng-template #noRequests>
+  <p>no requests</p>
+</ng-template>
