@@ -40,6 +40,7 @@ import { OperationDetailComponent } from './operations/operation-detail/operatio
 import { OperationEditComponent } from './operations/operation-edit/operation-edit.component';
 import { RequestsListComponent } from './requests/requests-list/requests-list.component';
 import { RequestEditComponent } from './requests/request-edit/request-edit.component';
+import { SendMailComponent } from './emails/send-mail/send-mail.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'Requests', component: RequestsListComponent },
   { path: 'Operation/Post', component: OperationEditComponent },
   { path: 'Operations', component: OperationsListComponent },
+  { path: 'SendMail', component: SendMailComponent },
   { path: 'SignIn', component: SignInComponent },
   { path: 'Reports', component: ReportsComponent}
 ];
@@ -90,7 +92,8 @@ const routes: Routes = [
     OperationDetailComponent,
     OperationEditComponent,
     RequestsListComponent,
-    RequestEditComponent
+    RequestEditComponent,
+    SendMailComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

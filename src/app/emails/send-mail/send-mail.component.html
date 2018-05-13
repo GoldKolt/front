@@ -1,0 +1,19 @@
+<form>
+  <div>
+    <mat-form-field hintLabel="Separate emails with a comma">
+      <input matInput placeholder="E-mails" name="email" [(ngModel)]="emailsInput">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Subject" name="subject" [(ngModel)]="subject">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <textarea matInput placeholder="Message" name="message" [(ngModel)]="messageInput"></textarea>
+    </mat-form-field>
+  </div>
+
+  <button (click)="Submit()">Send</button>
+</form>

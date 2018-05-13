@@ -23,16 +23,18 @@ export class RequestsListComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
     this.clientService.getAll(this.token).subscribe(resp => {
-      this.client = resp.find(value => value.account.id === this.user.id);
-      this.requestService.client = this.client;
-      this.requestService.getAll(this.token).subscribe(request => {
-        this.check = new Array<boolean>(request.length);
-        request.forEach(value => {
-          if (value.owner.id === this.client.id) {
-            this.client.requests.push(value);
-          }
+      if (resp) {
+        this.client = resp.find(value => value.account.id === this.user.id);
+        this.requestService.client = this.client;
+        this.requestService.getAll(this.token).subscribe(request => {
+          this.check = new Array<boolean>(request.length);
+          request.forEach(value => {
+            if (value.owner.id === this.client.id) {
+              this.client.requests.push(value);
+            }
+          });
         });
-      });
+      }
     });
   }
 
