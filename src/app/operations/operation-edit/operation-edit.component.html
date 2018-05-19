@@ -2,15 +2,14 @@
 <table class="mat-table" *ngIf="types; else noTypeOperations">
   <thead>
   <tr class="mat-header-row">
+    <th *ngIf="post"></th>
     <th class="mat-header-cell">Name</th>
-    <th class="mat-header-cell">Car brand</th>
-    <th class="mat-header-cell">Car model</th>
     <th class="mat-header-cell">Price</th>
   </tr>
   </thead>
   <tbody>
   <tr class="mat-row" *ngFor="let type of types">
-    <mat-checkbox class="example-margin" [checked]="checkType[types.indexOf(type)]" (change)="CheckType(type)"></mat-checkbox>
+    <mat-checkbox class="example-margin" *ngIf="post" [checked]="checkType[types.indexOf(type)]" (change)="CheckType(type)"></mat-checkbox>
     <td class="mat-cell">{{type.name}}</td>
     <td class="mat-cell">{{type.price}}</td>
   </tr>
@@ -26,6 +25,7 @@
   <table class="mat-table" *ngIf="spareParts; else noSpareParts">
     <thead>
     <tr class="mat-header-row">
+      <th *ngIf="post"></th>
       <th class="mat-header-cell">Name</th>
       <th class="mat-header-cell">Car brand</th>
       <th class="mat-header-cell">Car model</th>
@@ -34,7 +34,7 @@
     </thead>
     <tbody>
     <tr class="mat-row" *ngFor="let sparePart of spareParts">
-      <mat-checkbox class="example-margin" [checked]="checkSparePart[spareParts.indexOf(sparePart)]" (change)="CheckSparePart(sparePart)"></mat-checkbox>
+      <mat-checkbox class="example-margin" *ngIf="post" [checked]="checkSparePart[spareParts.indexOf(sparePart)]" (change)="CheckSparePart(sparePart)"></mat-checkbox>
       <td class="mat-cell">{{sparePart.name}}</td>
       <td class="mat-cell">{{sparePart.carBrand}}</td>
       <td class="mat-cell">{{sparePart.carModel}}</td>

@@ -26,14 +26,12 @@
 <table class="mat-table" *ngIf="service.requestsList; else noRequests">
   <thead>
   <tr class="mat-header-row">
-    <th class="mat-header-cell">owner</th>
     <th class="mat-header-cell">dateTimeCreation</th>
     <th class="mat-header-cell">dateTimeCompletion</th>
   </tr>
   </thead>
   <tbody>
   <tr class="mat-row" *ngFor="let request of service.requestsList">
-    <td class="mat-cell">{{request.owner}}</td>
     <td class="mat-cell">{{request.dateTimeCreation}}</td>
     <td class="mat-cell">{{request.dateTimeCompletion}}</td>
   </tr>

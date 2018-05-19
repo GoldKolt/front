@@ -7,6 +7,8 @@ import {User} from '../../model/user';
 import {UserService} from '../../users/user.service';
 import {OperationService} from '../../operations/operation.service';
 import {Location} from '@angular/common';
+import {CarServiceDataService} from '../../car-services/car-service-data.service';
+import {CarService} from '../../model/carservice';
 
 @Component({
   selector: 'app-request-edit',
@@ -22,11 +24,16 @@ export class RequestEditComponent implements OnInit {
   user: User;
   token: string;
   post = false;
+  carServices: CarService[];
+  showServices = false;
+  indexService = -1;
+  checkService: boolean[];
   constructor(
     private requestService: RequestService,
     private operationService: OperationService,
     private userService: UserService,
-    private location: Location
+    private location: Location,
+    private carServiceDataService: CarServiceDataService
   ) { }
 
   ngOnInit() {
@@ -54,6 +61,16 @@ export class RequestEditComponent implements OnInit {
     });
   }
 
+  CreateOperation() {
+    let index = -1;
+    if (this.operations) {
+      index = this.check.findIndex(value => value);
+    }
+    index > -1 ? this.operationService.editingOperation = this.operations[index] : this.operationService.editingOperation = null;
+    console.log(index);
+    console.log(this.operationService.editingOperation);
+  }
+
   Submit() {
     this.request.necessaryOperations = [];
     if (this.check) {
@@ -70,14 +87,60 @@ export class RequestEditComponent implements OnInit {
     //   date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
     this.request.owner = this.client;
     if (this.post) {
-      this.requestService.post(this.request, this.token).subscribe(() => this.location.back());
+      this.requestService.post(this.request, this.token).subscribe((request) => {
+        console.log(request);
+        this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
+          this.carServices = services;
+          if (this.carServices) {
+            this.checkService = new Array<boolean>(this.carServices.length);
+            this.showServices = true;
+          } else {
+            this.showServices = false;
+          }
+        });
+      });
     } else {
-      this.requestService.put(this.request, this.token).subscribe(() => this.location.back());
+      this.requestService.put(this.request, this.token).subscribe((request) => {
+        console.log(request);
+        this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
+          if (services) {
+            this.carServices = services;
+            this.showServices = true;
+            this.checkService = new Array<boolean>(this.carServices.length);
+          } else {
+            this.showServices = false;
+          }
+        });
+      });
     }
   }
 
   Check(operation) {
     const index = this.operations.indexOf(operation);
     this.check[index] = !this.check[index];
+  }
+
+  CheckService(service) {
+    const index = this.carServices.indexOf(service);
+    if (this.indexService === index) {
+      this.indexService = -1;
+    } else {
+      if (this.indexService !== -1) {
+        this.checkService[this.indexService] = false;
+      }
+      this.indexService = index;
+      this.checkService[index] = true;
+    }
+  }
+
+  SendRequestToService() {
+    if (this.indexService !== -1) {
+      const editingCarService = this.carServices[this.indexService];
+      if (!editingCarService.requestsList) {
+        editingCarService.requestsList = new Array<Request>();
+      }
+      editingCarService.requestsList.push(this.request);
+      this.carServiceDataService.put(editingCarService, this.token).subscribe(() => this.location.back());
+    }
   }
 }

@@ -39,6 +39,7 @@ export class OperationEditComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
     this.operation = this.operationService.editingOperation;
+    console.log(this.operationService.editingOperation);
     if (!this.operation) {
       this.operation = new Operation();
       this.post = true;
@@ -73,20 +74,21 @@ export class OperationEditComponent implements OnInit {
   }
 
   Submit() {
-    this.operation.typeOperation = null;
-    this.operation.sparePart = null;
-    if (this.indexTypeOperation !== -1) {
-      this.operation.typeOperation = this.types[this.indexTypeOperation];
-      if (this.operation.typeOperation.sparePartIsNecessary) {
-        if (this.indexSparePart !== -1) {
-          this.operation.sparePart = this.spareParts[this.indexSparePart];
+    console.log(this.post);
+    this.operation.status = this.status;
+    if (!this.post) {
+      this.operationService.put(this.operation, this.token).subscribe(() => this.location.back());
+    } else {
+      this.operation.typeOperation = null;
+      this.operation.sparePart = null;
+      if (this.indexTypeOperation !== -1) {
+        this.operation.typeOperation = this.types[this.indexTypeOperation];
+        if (this.operation.typeOperation.sparePartIsNecessary) {
+          if (this.indexSparePart !== -1) {
+            this.operation.sparePart = this.spareParts[this.indexSparePart];
+          }
         }
-      }
-      this.operation.status = this.status;
-      if (this.post) {
         this.operationService.post(this.operation, this.token).subscribe(() => this.location.back());
-      } else {
-        this.operationService.put(this.operation, this.token).subscribe(() => this.location.back());
       }
     }
   }

@@ -27,12 +27,14 @@ export class RequestsListComponent implements OnInit {
         this.client = resp.find(value => value.account.id === this.user.id);
         this.requestService.client = this.client;
         this.requestService.getAll(this.token).subscribe(request => {
-          this.check = new Array<boolean>(request.length);
-          request.forEach(value => {
-            if (value.owner.id === this.client.id) {
-              this.client.requests.push(value);
-            }
-          });
+          if (request) {
+            this.check = new Array<boolean>(request.length);
+            request.forEach(value => {
+              if (value.owner.id === this.client.id) {
+                this.client.requests.push(value);
+              }
+            });
+          }
         });
       }
     });

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CarService} from '../model/carservice';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Request} from '../model/request';
 
 @Injectable()
 export class CarServiceDataService {
@@ -45,5 +46,15 @@ export class CarServiceDataService {
       })
     };
     return this.http.put<CarService>(this.url, carService, options);
+  }
+
+  getCarByRequest(request: Request, token: string) {
+    const options = {
+      headers: new HttpHeaders( {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      })
+    };
+    return this.http.post<CarService[]>(this.url + 'findCarService', request, options);
   }
 }
