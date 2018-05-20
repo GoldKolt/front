@@ -12,28 +12,28 @@
       <button class="nav-button" mat-button routerLink="/Services">Services</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Masters">Masters</button>
+      <button *ngIf="currentUser && currentUser.roles && (currentUser.roles.includes('ROLE_ADMIN') || currentUser.roles.includes('ROLE_MASTER'))" class="nav-button" mat-button routerLink="/Masters">Masters</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Clients">Clients</button>
+      <button *ngIf="currentUser && currentUser.roles && (currentUser.roles.includes('ROLE_ADMIN') || currentUser.roles.includes('ROLE_MASTER'))" class="nav-button" mat-button routerLink="/Clients">Clients</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Requests">Requests</button>
+      <button *ngIf="currentUser && currentUser.roles && (currentUser.roles.includes('ROLE_ADMIN') || currentUser.roles.includes('ROLE_CLIENT'))" class="nav-button" mat-button routerLink="/Requests">Requests</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Operations">Operations</button>
+      <button *ngIf="currentUser && currentUser.roles && (currentUser.roles.includes('ROLE_ADMIN') || currentUser.roles.includes('ROLE_MASTER'))" class="nav-button" mat-button routerLink="/Operations">Operations</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/Reports">Reports</button>
+      <button *ngIf="currentUser && currentUser.roles && (currentUser.roles.includes('ROLE_ADMIN') || currentUser.roles.includes('ROLE_MASTER'))" class="nav-button" mat-button routerLink="/Reports">Reports</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/TypeOperations">Type Operations</button>
+      <button *ngIf="currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')" class="nav-button" mat-button routerLink="/TypeOperations">Type Operations</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/SpareParts">Spare Parts</button>
+      <button *ngIf="currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')" class="nav-button" mat-button routerLink="/SpareParts">Spare Parts</button>
     </div>
     <div>
-      <button class="nav-button" mat-button routerLink="/SendMail">Send mail</button>
+      <button *ngIf="currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')" class="nav-button" mat-button routerLink="/SendMail">Send mail</button>
     </div>
 
     <hr class="divider">

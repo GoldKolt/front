@@ -48,7 +48,7 @@
   </ng-template>
 </div>
 
-<mat-select [(value)]="status">
+<mat-select *ngIf="!post" [(value)]="status">
   <mat-option value="WAITING">WAITING</mat-option>
   <mat-option value="ACCEPTED">ACCEPTED</mat-option>
   <mat-option value="PROCESSING">PROCESSING</mat-option>

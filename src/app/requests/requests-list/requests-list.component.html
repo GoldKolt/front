@@ -1,7 +1,7 @@
 <table class="mat-table">
   <thead>
     <tr class="mat-header-row">
-      <th></th>
+      <th *ngIf="user.roles.includes('ROLE_ADMIN')"></th>
       <th class="mat-header-cell">ID</th>
       <th class="mat-header-cell">Creation time</th>
       <th class="mat-header-cell">Completion time</th>
@@ -9,19 +9,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="mat-row" *ngFor="let request of client.requests">
-      <mat-checkbox class="example-margin" [checked]="check[client.requests.indexOf(request)]" (change)="Check(request)"></mat-checkbox>
+    <tr class="mat-row" *ngFor="let request of requests">
+      <mat-checkbox *ngIf="user.roles.includes('ROLE_ADMIN')" class="example-margin" [checked]="check[requests.indexOf(request)]" (change)="Check(request)"></mat-checkbox>
       <td class="mat-cell">{{request.id}}</td>
       <td class="mat-cell">{{request.dateTimeCreation}}</td>
       <td class="mat-cell">{{request.dateTimeCompletion}}</td>
       <td class="mat-cell">
-        <p *ngFor="let operation of request.necessaryOperations">{{operation.typeOperation.name}}({{operation.carBrand}} {{operation.carModel}})</p>
+        <p *ngFor="let operation of request.necessaryOperations">{{operation.typeOperation.name}}({{operation.sparePart ? operation.sparePart.carBrand : ''}} {{operation.sparePart ? operation.sparePart.carModel : ''}})</p>
       </td>
     </tr>
   </tbody>
 </table>
 
 <div *ngIf="user">
-  <button (click)="Edit()" routerLink="/Request/Post">Add/Edit request</button>
-  <button (click)="Delete()">Delete request</button>
+  <button *ngIf="user.roles.includes('ROLE_CLIENT')" routerLink='/Request/Add'>Add request</button>
+  <button *ngIf="user.roles.includes('ROLE_ADMIN')" (click)="Delete()">Delete request</button>
 </div>

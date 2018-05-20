@@ -17,13 +17,11 @@ import {CarService} from '../../model/carservice';
 })
 export class RequestEditComponent implements OnInit {
 
-  request: Request = new Request();
+  request: Request;
   client: Client;
-  operations: Operation[];
   check: boolean[];
   user: User;
   token: string;
-  post = false;
   carServices: CarService[];
   showServices = false;
   indexService = -1;
@@ -39,84 +37,61 @@ export class RequestEditComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.getCurrentUser();
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
-    this.client = this.requestService.client;
-    this.request = this.requestService.editingRequest;
-    if (!this.request) {
-      this.request = new Request();
-      this.post = true;
+    if (this.requestService.client) {
+      this.client = this.requestService.client;
     }
-    this.operationService.getAll(this.token).subscribe(operations => {
-      this.operations = operations;
-      if (operations) {
-        this.check = new Array<boolean>(operations.length);
-        if (this.request.necessaryOperations) {
-          this.request.necessaryOperations.forEach(value => {
-            const index = this.operations.findIndex(value1 => value1.id === value.id);
-            if (index !== -1) {
-              this.check[index] = true;
-            }
-          });
-        }
-      }
-    });
+    this.request = new Request();
+    this.request.necessaryOperations = [];
+    this.check = new Array<boolean>(0);
   }
 
-  CreateOperation() {
-    let index = -1;
-    if (this.operations) {
-      index = this.check.findIndex(value => value);
+  addOperation(operation: Operation) {
+    console.log('qewqw');
+    const newOperation = new Operation();
+    newOperation.id = operation.id;
+    newOperation.sparePart = operation.sparePart;
+    newOperation.typeOperation = operation.typeOperation;
+    newOperation.status = 'WAITING';
+    this.request.necessaryOperations.push(newOperation);
+  }
+
+  DeleteOperation() {
+    const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
+    for (let index = this.check.length - 1; index >= 0; index--){
+      if (this.check[index]) {
+        console.log(this.request.necessaryOperations[index]);
+        this.operationService.delete(this.request.necessaryOperations[index].id, token).subscribe(() => {
+
+        });
+        this.request.necessaryOperations.splice(index, 1);
+        this.check.splice(index, 1);
+      }
     }
-    index > -1 ? this.operationService.editingOperation = this.operations[index] : this.operationService.editingOperation = null;
-    console.log(index);
-    console.log(this.operationService.editingOperation);
   }
 
   Submit() {
-    this.request.necessaryOperations = [];
-    if (this.check) {
-      this.operations.forEach(value => {
-        const index = this.operations.indexOf(value);
-        if (this.check[index]) {
-          this.request.necessaryOperations.push(value);
-        }
-      });
-    }
     // const date = new Date();
     // this.request.dateTimeCreation =
     //   date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '@' +
     //   date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
     this.request.owner = this.client;
-    if (this.post) {
-      this.requestService.post(this.request, this.token).subscribe((request) => {
-        console.log(request);
-        this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
-          this.carServices = services;
-          if (this.carServices) {
-            this.checkService = new Array<boolean>(this.carServices.length);
-            this.showServices = true;
-          } else {
-            this.showServices = false;
-          }
-        });
+    console.log(this.client);
+    this.requestService.post(this.request, this.token).subscribe((request) => {
+      console.log(request);
+      this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
+        this.carServices = services;
+        if (this.carServices) {
+          this.checkService = new Array<boolean>(this.carServices.length);
+          this.showServices = true;
+        } else {
+          this.showServices = false;
+        }
       });
-    } else {
-      this.requestService.put(this.request, this.token).subscribe((request) => {
-        console.log(request);
-        this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
-          if (services) {
-            this.carServices = services;
-            this.showServices = true;
-            this.checkService = new Array<boolean>(this.carServices.length);
-          } else {
-            this.showServices = false;
-          }
-        });
-      });
-    }
+    });
   }
 
   Check(operation) {
-    const index = this.operations.indexOf(operation);
+    const index = this.request.necessaryOperations.indexOf(operation);
     this.check[index] = !this.check[index];
   }
 

@@ -1,7 +1,7 @@
 <table class="mat-table">
   <thead>
   <tr class="mat-header-row">
-    <th></th>
+    <th *ngIf="user && !user.roles.includes('ROLE_CLIENT')"></th>
     <th class="mat-header-cell">ID</th>
     <th class="mat-header-cell">Name</th>
     <th class="mat-header-cell">Price</th>
@@ -13,21 +13,21 @@
   </thead>
   <tbody>
   <tr class="mat-row" *ngFor="let operation of operations">
-    <mat-checkbox *ngIf="user" class="example-margin" [checked]="check[operations.indexOf(operation)]" (change)="Check(operation)"></mat-checkbox>
-    <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.id}}</td>
-    <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.typeOperation.name}}</td>
-    <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.typeOperation.price}}</td>
+    <mat-checkbox *ngIf="user && !user.roles.includes('ROLE_CLIENT')" class="example-margin" [checked]="check[operations.indexOf(operation)]" (change)="Check(operation)"></mat-checkbox>
+    <td class="mat-cell">{{operation.id}}</td>
+    <td class="mat-cell">{{operation.typeOperation.name}}</td>
+    <td class="mat-cell">{{operation.typeOperation.price}}</td>
     <ng-container *ngIf="operation.sparePart">
-      <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.sparePart.name}}</td>
-      <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.sparePart.carBrand}}</td>
-      <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.sparePart.carModel}}</td>
-      <td class="mat-cell" routerLink="/Operation/{{operation.id}}">{{operation.sparePart.price}}</td>
+      <td class="mat-cell">{{operation.sparePart.name}}</td>
+      <td class="mat-cell">{{operation.sparePart.carBrand}}</td>
+      <td class="mat-cell">{{operation.sparePart.carModel}}</td>
+      <td class="mat-cell">{{operation.sparePart.price}}</td>
     </ng-container>
   </tr>
   </tbody>
 </table>
 
 <div *ngIf="user">
-  <button (click)="Edit()" routerLink="/Operation/Post">Add/Edit operation</button>
-  <button (click)="Delete()">Delete operation</button>
+  <button *ngIf="user.roles.includes('ROLE_MASTER')" (click)="Edit()">Edit operation</button>
+  <button *ngIf="user.roles.includes('ROLE_ADMIN')" (click)="Delete()">Delete operation</button>
 </div>

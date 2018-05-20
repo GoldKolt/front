@@ -58,7 +58,7 @@ const routes: Routes = [
   { path: 'TypeOperation/Post', component: TypeOperationEditComponent },
   { path: 'TypeOperations', component: TypeOperationsListComponent},
   { path: 'TypeOperation/:id', component: TypeOperationDetailComponent },
-  { path: 'Request/Post', component: RequestEditComponent },
+  { path: 'Request/Add', component: RequestEditComponent },
   { path: 'Requests', component: RequestsListComponent },
   { path: 'Operation/Post', component: OperationEditComponent },
   { path: 'Operations', component: OperationsListComponent },

@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="mat-row" *ngFor="let master of service.masters" routerLink="/Master/{{master.id}}">
+  <tr class="mat-row" *ngFor="let master of service.masters">
     <td class="mat-cell">{{master.fullName}}</td>
     <td class="mat-cell">{{master.birthDay}}</td>
     <td class="mat-cell">{{master.phoneNumber}}</td>

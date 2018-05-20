@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {Operation} from '../../model/operation';
 import {User} from '../../model/user';
 import {SparePart} from '../../model/spare-part';
@@ -16,6 +16,7 @@ import {Location} from '@angular/common';
 })
 export class OperationEditComponent implements OnInit {
 
+  @Output() newOperation = new EventEmitter<Operation>();
   operation: Operation = new Operation();
   spareParts: SparePart[];
   checkSparePart: boolean[];
@@ -39,7 +40,6 @@ export class OperationEditComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
     this.operation = this.operationService.editingOperation;
-    console.log(this.operationService.editingOperation);
     if (!this.operation) {
       this.operation = new Operation();
       this.post = true;
@@ -88,7 +88,9 @@ export class OperationEditComponent implements OnInit {
             this.operation.sparePart = this.spareParts[this.indexSparePart];
           }
         }
-        this.operationService.post(this.operation, this.token).subscribe(() => this.location.back());
+        this.operationService.post(this.operation, this.token).subscribe((resp) => {
+          this.newOperation.emit(resp);
+        });
       }
     }
   }
