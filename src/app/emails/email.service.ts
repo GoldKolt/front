@@ -5,7 +5,8 @@ import {Mail} from '../model/mail';
 
 @Injectable()
 export class EmailService {
-  url = 'https://spp-bsuir.herokuapp.com/template';
+  url = 'https://spp-bsuir.herokuapp.com/template/';
+  editingTemplate: MailTemplate;
   constructor(private http: HttpClient) { }
 
   send(mail: Mail, token: string = '') {

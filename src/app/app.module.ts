@@ -41,6 +41,9 @@ import { OperationEditComponent } from './operations/operation-edit/operation-ed
 import { RequestsListComponent } from './requests/requests-list/requests-list.component';
 import { RequestEditComponent } from './requests/request-edit/request-edit.component';
 import { SendMailComponent } from './emails/send-mail/send-mail.component';
+import { TemplatePostComponent } from './emails/template-post/template-post.component';
+import { TemplateListComponent } from './emails/template-list/template-list.component';
+import { EmailService } from './emails/email.service';
 
 
 const routes: Routes = [
@@ -64,7 +67,9 @@ const routes: Routes = [
   { path: 'Operations', component: OperationsListComponent },
   { path: 'SendMail', component: SendMailComponent },
   { path: 'SignIn', component: SignInComponent },
-  { path: 'Reports', component: ReportsComponent}
+  { path: 'Reports', component: ReportsComponent},
+  { path: 'Template/Post', component: TemplatePostComponent},
+  { path: 'Templates', component: TemplateListComponent}
 ];
 
 @NgModule({
@@ -93,7 +98,9 @@ const routes: Routes = [
     OperationEditComponent,
     RequestsListComponent,
     RequestEditComponent,
-    SendMailComponent
+    SendMailComponent,
+    TemplatePostComponent,
+    TemplateListComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -115,7 +122,8 @@ const routes: Routes = [
     RequestService,
     TypeOperationService,
     OperationService,
-    ClientService
+    ClientService,
+    EmailService
   ],
   bootstrap: [AppComponent]
 })

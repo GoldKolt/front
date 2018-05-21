@@ -35,6 +35,9 @@
     <div>
       <button *ngIf="currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')" class="nav-button" mat-button routerLink="/SendMail">Send mail</button>
     </div>
+    <div>
+      <button *ngIf="currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')" class="nav-button" mat-button routerLink="/Templates">Templates</button>
+    </div>
 
     <hr class="divider">
 
