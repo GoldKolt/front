@@ -15,7 +15,7 @@ import {MasterService} from '../master.service';
 })
 export class MasterDetailEditComponent implements OnInit {
 
-  @Input() public master: Master;
+  master: Master;
   user: User;
   token: string;
   operations: Operation[];
@@ -34,19 +34,22 @@ export class MasterDetailEditComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.getCurrentUser();
     this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
-
-    this.operationService.getAll(this.token).subscribe(operations => {
-      this.operations = operations;
-      if (operations) {
-        this.checkOperation = new Array<boolean>(operations.length);
-        this.master.acceptedOperation.forEach(value => {
-          const index = this.operations.findIndex(value1 => value1.id === value.id);
-          if (index !== -1) {
-            this.checkOperation[index] = true;
-          }
-        });
-      }
-    });
+    this.masterService.getAll(this.token).subscribe(masters => {
+      this.master = masters.find(value => value.account.id === this.user.id);
+      
+      this.operationService.getMasterOperations(this.master, this.token).subscribe(operations => {
+        this.operations = operations;
+        if (operations) {
+          this.checkOperation = new Array<boolean>(operations.length);
+          this.master.acceptedOperation.forEach(value => {
+            const index = this.operations.findIndex(value1 => value1.id === value.id);
+            if (index !== -1) {
+              this.checkOperation[index] = true;
+            }
+          });
+        }
+      });
+    })
 
     this.typeOperationService.getAll(this.token).subscribe(specializations => {
       this.specializations = specializations;
@@ -74,7 +77,9 @@ export class MasterDetailEditComponent implements OnInit {
 
   Submit() {
     if (this.master.phoneNumber && this.master.birthDay && this.master.fullName) {
-      this.master.acceptedOperation = [];
+      if (!this.master.acceptedOperation) {
+        this.master.acceptedOperation = [];
+      }
       this.master.specializations = [];
       if (this.checkOperation) {
         this.operations.forEach(value => {

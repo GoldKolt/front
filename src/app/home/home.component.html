@@ -1,6 +1,6 @@
 <h1 *ngIf="user && user.roles.includes('ROLE_ADMIN')">HELLO ADMIN!</h1>
 <div *ngIf="user && user.roles.includes('ROLE_MASTER')">
-  <app-master-detail-edit [master]="master"></app-master-detail-edit>
+  <app-master-detail-edit></app-master-detail-edit>
 </div>
 <div *ngIf="user && user.roles.includes('ROLE_CLIENT')">
   <app-client-detail-edit [client]="client"></app-client-detail-edit>

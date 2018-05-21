@@ -15,7 +15,7 @@
       <td class="mat-cell">{{request.dateTimeCreation}}</td>
       <td class="mat-cell">{{request.dateTimeCompletion}}</td>
       <td class="mat-cell">
-        <p *ngFor="let operation of request.necessaryOperations">{{operation.typeOperation.name}}({{operation.sparePart ? operation.sparePart.carBrand : ''}} {{operation.sparePart ? operation.sparePart.carModel : ''}})</p>
+        <p *ngFor="let operation of request.necessaryOperations">{{operation.typeOperation.name}}({{operation.sparePart ? operation.sparePart.carBrand : ''}} {{operation.sparePart ? operation.sparePart.carModel : ''}}) - {{operation.status}}</p>
       </td>
     </tr>
   </tbody>

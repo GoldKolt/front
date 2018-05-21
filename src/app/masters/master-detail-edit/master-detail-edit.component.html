@@ -24,7 +24,7 @@
     <td class="mat-cell">{{operation.typeOperation.id}}</td>
     <td class="mat-cell">{{operation.typeOperation.name}}</td>
     <td class="mat-cell">{{operation.typeOperation.price}}</td>
-    <td class="mat-cell" *ngIf="operation.typeOperation.sparePartIsNecessary">
+    <td class="mat-cell" *ngIf="operation.sparePart">
       <p>Name: {{operation.sparePart.name}}</p>
       <p>Car model: {{operation.sparePart.carModel}}</p>
       <p>Car brand: {{operation.sparePart.carBrand}}</p>

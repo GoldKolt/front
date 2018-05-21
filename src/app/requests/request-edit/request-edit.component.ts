@@ -77,7 +77,7 @@ export class RequestEditComponent implements OnInit {
     this.request.owner = this.client;
     console.log(this.client);
     this.requestService.post(this.request, this.token).subscribe((request) => {
-      console.log(request);
+      this.request = request;
       this.carServiceDataService.getCarByRequest(request, this.token).subscribe(services => {
         this.carServices = services;
         if (this.carServices) {

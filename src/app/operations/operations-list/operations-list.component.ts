@@ -4,6 +4,8 @@ import {Operation} from '../../model/operation';
 import {UserService} from '../../users/user.service';
 import {User} from '../../model/user';
 import { Router } from '@angular/router';
+import { MasterService } from '../../masters/master.service';
+import { Master } from '../../model/master';
 
 @Component({
   selector: 'app-operations-list',
@@ -16,20 +18,31 @@ export class OperationsListComponent implements OnInit {
   check: boolean[];
   index = -1;
   user: User = new User();
+  token: string;
+  master: Master;
   constructor(
     private operationService: OperationService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private masterService: MasterService
   ) { }
 
   ngOnInit() {
     this.user = this.userService.getCurrentUser();
-    this.operationService.getAll().subscribe(resp => {
-      this.operations = resp;
-      if (resp) {
-        this.check = new Array<boolean>(resp.length);
-      }
-    });
+    this.token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
+    if (this.user.roles.includes('ROLE_MASTER')) {
+      this.masterService.getAll(this.token).subscribe(masters => {
+        this.master = masters.find(value => value.account.id === this.user.id);
+        this.operations = this.master.acceptedOperation;
+      })
+    } else {
+      this.operationService.getAll(this.token).subscribe(resp => {
+        this.operations = resp;
+        if (resp) {
+          this.check = new Array<boolean>(resp.length);
+        }
+      });
+    }
   }
 
   Edit() {
