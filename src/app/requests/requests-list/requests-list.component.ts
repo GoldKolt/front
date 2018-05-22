@@ -58,26 +58,17 @@ export class RequestsListComponent implements OnInit {
   }
 
   Delete() {
-    if (this.index > -1) {
-      const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
-      this.requestService.delete(this.requests[this.index].id, token).subscribe(() => {
-        this.requests.splice( this.index, 1 );
-        this.check.splice( this.index, 1 );
-        this.index = -1;
-      });
+    for (let index = this.requests.length - 1; index >= 0; --index) {
+      if (this.check[index]) {
+        this.requestService.delete(this.requests[index].id, this.token).subscribe();
+        this.requests.splice(index, 1);
+        this.check.splice(index, 1);
+      }
     }
   }
 
   Check(request) {
     const index = this.requests.indexOf(request);
-    if (this.index === index) {
-      this.index = -1;
-    } else {
-      if (this.index !== -1) {
-        this.check[this.index] = false;
-      }
-      this.index = index;
-      this.check[index] = true;
-    }
+    this.check[index] = this.check[index];
   }
 }

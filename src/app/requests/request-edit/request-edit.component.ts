@@ -9,6 +9,7 @@ import {OperationService} from '../../operations/operation.service';
 import {Location} from '@angular/common';
 import {CarServiceDataService} from '../../car-services/car-service-data.service';
 import {CarService} from '../../model/carservice';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-edit',
@@ -30,7 +31,7 @@ export class RequestEditComponent implements OnInit {
     private requestService: RequestService,
     private operationService: OperationService,
     private userService: UserService,
-    private location: Location,
+    private router: Router,
     private carServiceDataService: CarServiceDataService
   ) { }
 
@@ -115,7 +116,7 @@ export class RequestEditComponent implements OnInit {
         editingCarService.requestsList = new Array<Request>();
       }
       editingCarService.requestsList.push(this.request);
-      this.carServiceDataService.put(editingCarService, this.token).subscribe(() => this.location.back());
+      this.carServiceDataService.put(editingCarService, this.token).subscribe(() => this.router.navigate(['Requests'], {replaceUrl: true}));
     }
   }
 }

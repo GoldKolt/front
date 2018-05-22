@@ -34,13 +34,18 @@ export class TemplateListComponent implements OnInit {
   }
 
   Edit() {
-    if (this.check.indexOf(true, this.check.indexOf(true) + 1) === -1) {
-      let index = this.check.indexOf(true);
-      if (index > -1) {
-        this.mailService.editingTemplate = this.templates[index];
-      } else {
-        this.mailService.editingTemplate = null;
+    if (this.check) {
+      if (this.check.indexOf(true, this.check.indexOf(true) + 1) === -1) {
+        let index = this.check.indexOf(true);
+        if (index > -1) {
+          this.mailService.editingTemplate = this.templates[index];
+        } else {
+          this.mailService.editingTemplate = null;
+        }
+        this.router.navigate(['Template','Post'], {replaceUrl: true});
       }
+    } else {
+      this.mailService.editingTemplate = null;
       this.router.navigate(['Template','Post'], {replaceUrl: true});
     }
   }

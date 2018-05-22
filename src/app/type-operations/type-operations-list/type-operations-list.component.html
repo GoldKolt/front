@@ -20,6 +20,6 @@
 </table>
 
 <div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
-  <button (click)="Edit()" routerLink="/TypeOperation/Post">Add/Edit operation type</button>
+  <button (click)="Edit()">Add/Edit operation type</button>
   <button (click)="Delete()">Delete</button>
 </div>

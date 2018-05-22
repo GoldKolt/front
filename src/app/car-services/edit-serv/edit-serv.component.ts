@@ -8,6 +8,7 @@ import {User} from '../../model/user';
 import {SparePartService} from '../../spare-parts/spare-part.service';
 import {PairSparePartCount} from '../../model/pair-spare-part-count';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-serv',
@@ -29,7 +30,7 @@ export class EditServComponent implements OnInit {
     private masterService: MasterService,
     private userService: UserService,
     private sparePartService: SparePartService,
-    private location: Location
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,7 +62,12 @@ export class EditServComponent implements OnInit {
         spareParts.forEach(value => {
           const newPart = new PairSparePartCount();
           newPart.sparePart = value;
-          newPart.count = 0;
+          const index = this.editingService.sparePartsCount.findIndex(value2 => value2.sparePart.id === value.id);
+          if (index >= 0) {
+            newPart.count = this.editingService.sparePartsCount[index].count;
+          } else {
+            newPart.count = 0;
+          }
           this.countSpareParts.push(newPart);
         });
         if (this.editingService.sparePartsCount) {
@@ -113,9 +119,9 @@ export class EditServComponent implements OnInit {
         });
       }
       if (this.post) {
-        this.carServiceDataService.post(this.editingService, this.token).subscribe(() => this.location.back());
+        this.carServiceDataService.post(this.editingService, this.token).subscribe( () => this.router.navigate(['Services'], {replaceUrl: true} ))
       } else {
-        this.carServiceDataService.put(this.editingService, this.token).subscribe(() => this.location.back());
+        this.carServiceDataService.put(this.editingService, this.token).subscribe( () => this.router.navigate(['Services'], {replaceUrl: true}) )
       }
     }
   }

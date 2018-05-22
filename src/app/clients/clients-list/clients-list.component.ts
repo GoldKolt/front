@@ -14,8 +14,6 @@ export class ClientsListComponent implements OnInit {
 
   clients: Client[];
   check: boolean[];
-  checkedClient: Client;
-  index = -1;
   user: User;
   token: string;
   constructor(private userService: UserService, private clientService: ClientService) { }
@@ -32,29 +30,18 @@ export class ClientsListComponent implements OnInit {
   }
 
   Delete() {
-    if (this.index > -1) {
-      this.clientService.delete(this.checkedClient.id, this.token).subscribe(() => {
-        this.checkedClient = null;
-        this.clients.splice( this.index, 1 );
-        this.check.splice( this.index, 1 );
-        this.index = -1;
-      });
+    for (let index = this.clients.length - 1; index >= 0; --index) {
+      if (this.check[index]) {
+        this.clientService.delete(this.clients[index].id, this.token).subscribe();
+        this.clients.splice(index, 1);
+        this.check.splice(index, 1);
+      }
     }
   }
 
   Check(client) {
     const index = this.clients.indexOf(client);
-    if (this.index === index) {
-      this.checkedClient = null;
-      this.index = -1;
-    } else {
-      if (this.index !== -1) {
-        this.check[this.index] = false;
-      }
-      this.checkedClient = client;
-      this.index = index;
-      this.check[index] = true;
-    }
+    this.check[index] = !this.check[index];
   }
 
 }

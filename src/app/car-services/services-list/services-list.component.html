@@ -13,6 +13,6 @@
 </table>
 
 <div *ngIf="user && user.roles.includes('ROLE_ADMIN')">
-  <button (click)="Edit()" routerLink="/Service/Post">Add/Edit service</button>
+  <button (click)="Edit()">Add/Edit service</button>
   <button (click)="Delete()">Delete</button>
 </div>

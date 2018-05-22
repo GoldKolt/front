@@ -15,7 +15,7 @@ import {MasterService} from '../master.service';
 })
 export class MasterDetailEditComponent implements OnInit {
 
-  master: Master;
+  master: Master = new Master();
   user: User;
   token: string;
   operations: Operation[];

@@ -56,17 +56,9 @@ export class OperationsListComponent implements OnInit {
     const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
     for (let index = this.check.length - 1; index >= 0; index--){
       if (this.check[index]) {
-        this.operationService.delete(this.operations[index].id, token).subscribe(() => {
-          if (index <= 0){
-            console.log(index);
-            this.operationService.getAll().subscribe(resp => {
-              this.operations = resp;
-              if (resp) {
-                this.check = new Array<boolean>(resp.length);
-              }
-            });
-          }
-        });
+        this.operationService.delete(this.operations[index].id, token).subscribe();
+        this.operations.splice(index, 1);
+        this.check.splice(index, 1);
       }
     }
   }

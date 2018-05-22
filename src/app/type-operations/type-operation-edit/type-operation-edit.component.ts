@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {TypeOperation} from '../../model/type-operation';
 import {User} from '../../model/user';
 import {UserService} from '../../users/user.service';
-import {Location} from '@angular/common';
 import {TypeOperationService} from '../type-operation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-type-operation-edit',
@@ -16,7 +16,11 @@ export class TypeOperationEditComponent implements OnInit {
   user: User;
   token: string;
   post = false;
-  constructor(private userService: UserService, private typeOperationService: TypeOperationService, private location: Location) { }
+  constructor(
+    private userService: UserService,
+    private typeOperationService: TypeOperationService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.user = this.userService.getCurrentUser();
@@ -30,9 +34,9 @@ export class TypeOperationEditComponent implements OnInit {
 
   Submit() {
     if (this.post) {
-      this.typeOperationService.post(this.type, this.token).subscribe(() => this.location.back());
+      this.typeOperationService.post(this.type, this.token).subscribe(() => this.router.navigate(['TypeOperations'], {replaceUrl: true}) );
     } else {
-      this.typeOperationService.put(this.type, this.token).subscribe(() => this.location.back());
+      this.typeOperationService.put(this.type, this.token).subscribe(() => this.router.navigate(['TypeOperations'], {replaceUrl: true}) );
     }
   }
 }

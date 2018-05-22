@@ -7,15 +7,12 @@ import {User} from '../../model/user';
 @Component({
   selector: 'app-masters-list',
   templateUrl: './masters-list.component.html',
-  styleUrls: ['./masters-list.component.css'],
-  providers: [MasterService]
+  styleUrls: ['./masters-list.component.css']
 })
 export class MastersListComponent implements OnInit {
 
   masters: Master[];
   check: boolean[];
-  checkedMaster: Master;
-  index = -1;
   user: User;
   token: string;
   constructor(private userService: UserService, private masterListService: MasterService) {
@@ -33,29 +30,17 @@ export class MastersListComponent implements OnInit {
   }
 
   Delete() {
-    if (this.index > -1) {
-      const token = 'Basic ' + btoa(this.user.email + ':' + this.user.password);
-      this.masterListService.delete(this.checkedMaster.id, token).subscribe(() => {
-        this.checkedMaster = null;
-        this.masters.splice( this.index, 1 );
-        this.check.splice( this.index, 1 );
-        this.index = -1;
-      });
+    for (let index = this.masters.length - 1; index >= 0; --index) {
+      if (this.check[index]) {
+        this.masterListService.delete(this.masters[index].id, this.token).subscribe();
+        this.masters.splice(index, 1);
+        this.check.splice(index, 1);
+      }
     }
   }
 
   Check(master) {
     const index = this.masters.indexOf(master);
-    if (this.index === index) {
-      this.checkedMaster = null;
-      this.index = -1;
-    } else {
-      if (this.index !== -1) {
-        this.check[this.index] = false;
-      }
-      this.checkedMaster = master;
-      this.index = index;
-      this.check[index] = true;
-    }
+    this.check[index] = this.check[index];
   }
 }

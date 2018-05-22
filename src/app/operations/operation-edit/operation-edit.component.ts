@@ -7,7 +7,7 @@ import {SparePartService} from '../../spare-parts/spare-part.service';
 import {TypeOperationService} from '../../type-operations/type-operation.service';
 import {TypeOperation} from '../../model/type-operation';
 import {UserService} from '../../users/user.service';
-import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-operation-edit',
@@ -33,7 +33,7 @@ export class OperationEditComponent implements OnInit {
     private sparePartService: SparePartService,
     private typeOperationService: TypeOperationService,
     private userService: UserService,
-    private location: Location
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -77,7 +77,7 @@ export class OperationEditComponent implements OnInit {
     console.log(this.post);
     this.operation.status = this.status;
     if (!this.post) {
-      this.operationService.put(this.operation, this.token).subscribe(() => this.location.back());
+      this.operationService.put(this.operation, this.token).subscribe(() => this.router.navigate(['Operations'], {replaceUrl: true}));
     } else {
       this.operation.typeOperation = null;
       this.operation.sparePart = null;
